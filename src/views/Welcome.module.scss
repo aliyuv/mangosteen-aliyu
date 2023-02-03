@@ -1,0 +1,33 @@
+.wrapper {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(to bottom, var(--welcome--bg-color--start) 0, var(--welcome--bg-color--end) 100%);
+  padding: 16px 16px;
+
+  >h1 {
+    align-self: flex-end;
+    color: var(--skip--font--color);
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 32px;
+  }
+
+  >header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+
+    >h2 {
+      color: var(--title--font--color);
+    }
+  }
+
+  >main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+}

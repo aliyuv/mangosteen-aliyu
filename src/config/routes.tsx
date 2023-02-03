@@ -8,16 +8,16 @@ import { Second } from "../views/Welcome/Second";
 import { Third } from "../views/Welcome/Third";
 
 export const routes: RouteRecordRaw[] = [
-    { path: '/', component: Foo },
-    { path: '/bar', component: Bar },
-    {
-        path: '/welcome',
-        component: Welcome,
-        children: [
-            { path: '1', component: First },
-            { path: '2', component: Second },
-            { path: '3', component: Third },
-            { path: '4', component: Four },
-        ]
-    }
+  { path: '/', component: Foo },
+  { path: '/bar', component: Bar },
+  {
+    path: '/welcome',
+    component: Welcome,
+    children: [
+      { path: '1', component: First },
+      { path: '2', component: Second },
+      { path: '3', component: Third },
+      { path: '4', component: Four },
+    ]
+  }
 ]

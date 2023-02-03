@@ -1,0 +1,32 @@
+.wrapper {
+  margin-top: 16px;
+  border-radius: 16px;
+  background-color: var(--contain--bg--color);
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 64px 0;
+
+  >.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: 64px;
+
+    >h2 {
+      margin-top: 40px;
+    }
+  }
+
+  >.action {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 64px;
+    font-size: 32px;
+    color: var(--action--font--color);
+    font-weight: 700;
+  }
+}
