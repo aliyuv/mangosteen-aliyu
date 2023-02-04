@@ -5,7 +5,7 @@ import mangosteen from "../assets/logo/mangosteen.svg";
 
 export const Welcome = defineComponent({
   setup() {
-    return () => (
+    return () => <>
       <div class={s.wrapper}>
         <div class={s.skiplink}><RouterLink to="/start">跳过</RouterLink></div>
         <header>
@@ -13,7 +13,8 @@ export const Welcome = defineComponent({
           <h2>山竹记账</h2>
         </header>
         <main><RouterView /></main>
+        
       </div>
-    )
+    </>
   }
 })
