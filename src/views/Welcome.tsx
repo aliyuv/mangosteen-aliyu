@@ -2,7 +2,9 @@ import { defineComponent, ref } from "vue";
 import { RouterLink, RouterView } from "vue-router";
 import s from "./Welcome.module.scss";
 import mangosteen from "../assets/logo/mangosteen.svg";
-
+import vhCheck from 'vh-check'
+const test = vhCheck()
+console.log(test)
 export const Welcome = defineComponent({
   setup() {
     return () => <>

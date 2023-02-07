@@ -1,5 +1,5 @@
 .wrapper {
-  height: 100vh;
+  height: calc(100vh - var(--vh-offset, 0px));
   display: flex;
   flex-direction: column;
   background: linear-gradient(to bottom, var(--welcome--bg-color--start) 0, var(--welcome--bg-color--end) 100%);
