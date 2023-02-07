@@ -3,6 +3,8 @@
   border-radius: 16px;
   background-color: var(--contain--bg--color);
   display: flex;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   flex-grow: 1;
   >.card {
@@ -11,8 +13,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding-top: 64px;
-    
+    padding: 16px 16px;
     >h2 {
       margin-top: 40px;
     }
