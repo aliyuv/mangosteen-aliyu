@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "sass": "1.58.0",
+    "vh-check": "2.0.5",
     "vue": "3.2.31",
     "vue-router": "4.0.14"
   },
