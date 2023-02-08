@@ -6,3 +6,8 @@ body {
   font-size: 16px;
   color: #333;
 }
+
+//隐藏webkit内核浏览器滚动条
+::webkit-scrollbar {
+  visibility: hidden;
+}

@@ -32,6 +32,27 @@
   >main {
     display: flex;
     flex-direction: column;
+    position: relative;
     flex-grow: 1;
   }
+}
+
+
+/*
+  Enter and leave animations can use different
+  durations and timing functions.
+*/
+.slide_fade_enter_active {
+  transition: all 1s ease-out;
+}
+
+.slide_fade_leave_active {
+  transition: all 1s ease-out;
+}
+
+.slide_fade_enter_from{
+  transform: translateX(100vw);
+}
+.slide_fade_leave_to {
+  transform: translateX(-100vw);
 }
