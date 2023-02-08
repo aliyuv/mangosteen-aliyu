@@ -15,7 +15,6 @@ export const Welcome = defineComponent({
           <h2>山竹记账</h2>
         </header>
         <main><RouterView /></main>
-        
       </div>
     </>
   }
