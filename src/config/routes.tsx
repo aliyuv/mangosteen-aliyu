@@ -12,10 +12,10 @@ export const routes: RouteRecordRaw[] = [
     component: Welcome,
     children: [
       { path: '', redirect: '/welcome/1' },
-      { path: '1', component: First },
-      { path: '2', component: Second },
-      { path: '3', component: Third },
-      { path: '4', component: Four },
+      { path: '1', name: 'Welcome1', component: First },
+      { path: '2', name: 'Welcome2', component: Second },
+      { path: '3', name: 'Welcome3', component: Third },
+      { path: '4', name: 'Welcome4', component: Four },
     ]
   }
 ]
