@@ -1,0 +1,11 @@
+.tabs {
+  >nav {
+    >ol {
+      >li {
+        &.selected {
+          background-color: red;
+        }
+      }
+    }
+  }
+}
