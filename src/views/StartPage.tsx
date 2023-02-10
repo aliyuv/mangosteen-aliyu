@@ -8,7 +8,7 @@ import { Overlay } from "../shared/Overlay"
 import s from "./StartPage.module.scss"
 export const StartPage = defineComponent({
   setup(props, context) {
-    const isVisiable = ref(true)
+    const isVisiable = ref(false)
     const clcikMenu = () => {
       isVisiable.value = !isVisiable.value
     }
