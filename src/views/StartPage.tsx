@@ -1,10 +1,10 @@
 import { defineComponent, ref } from "vue"
 import { RouterLink } from "vue-router"
+import { MainLayout } from "../Layouts/MainLayout"
 import { Button } from "../shared/Button"
 import { Center } from "../shared/Center"
 import { FloatButton } from "../shared/FloatButton"
 import { Icon } from "../shared/Icon"
-import { NavBar } from "../shared/NavBar"
 import { Overlay } from "../shared/Overlay"
 import s from "./StartPage.module.scss"
 export const StartPage = defineComponent({
@@ -14,30 +14,26 @@ export const StartPage = defineComponent({
       isVisiable.value = !isVisiable.value
     }
     return () => (
-      <div>
-        <nav>
-          <NavBar>
-            {{
-              icon: () => <Icon name="menu" class={s.navIcon} onClick={clcikMenu} />,
-              title: () => <span>山竹记账</span>
-            }}
-          </NavBar>
-        </nav>
-        <Center class={s.pig_wrapper}>
-          <Icon name="pig" class={s.pig} />
-        </Center>
-        <div class={s.button_wrapper}>
+      <MainLayout>{{
+        icon: () => <Icon name="menu" class={s.navIcon} onClick={clcikMenu} />,
+        title: () => <span>山竹记账</span>,
+        default: () => <>
+          <Center class={s.pig_wrapper}>
+            <Icon name="pig" class={s.pig} />
+          </Center>
+          <div class={s.button_wrapper}>
+            <RouterLink to="/items/create">
+              <Button class={s.button}>开始记账</Button>
+            </RouterLink>
+          </div>
           <RouterLink to="/items/create">
-            <Button class={s.button}>开始记账</Button>
+            <FloatButton IconName="add" />
           </RouterLink>
-        </div>
-        <RouterLink to="/items/create">
-          <FloatButton IconName="add" />
-        </RouterLink>
-        {
-          isVisiable.value && <Overlay onClose={() => isVisiable.value = false} />
-        }
-      </div>
+          {
+            isVisiable.value && <Overlay onClose={() => isVisiable.value = false} />
+          }
+        </>
+      }}</MainLayout>
     )
   }
 })
