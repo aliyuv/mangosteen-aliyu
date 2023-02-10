@@ -1,9 +1,33 @@
 .tabs {
   >nav {
     >ol {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: center;
+      color: var(--navbar-text);
+
       >li {
+        flex-shrink: 0;
+        flex-grow: 1;
+        padding: 12px 0;
+        background: var(--navbar-bg-end);
+
         &.selected {
-          background-color: red;
+          position: relative;
+
+
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            width: 100%;
+            background: var(--tabs-indicator-bg);
+            display: block;
+          }
         }
       }
     }
