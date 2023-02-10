@@ -1,4 +1,4 @@
-import { defineComponent, PropType, Transition } from "vue";
+import { defineComponent, PropType } from "vue";
 import s from "./Tabs.module.scss";
 export const Tabs = defineComponent({
   props: {
@@ -13,29 +13,27 @@ export const Tabs = defineComponent({
   },
   setup(props, context) {
     return () => {
-      const tabs = context.slots.default?.()
+      const tab = context.slots.default?.()
       //判断是否是 Tab 组件
-      if (!tabs) return () => null
-      for (let i = 0; i < tabs.length; i++) {
-        if (tabs[i].type !== Tab) {
+      if (!tab) return () => null
+      for (let i = 0; i < tab.length; i++) {
+        if (tab[i].type !== Tab) {
           throw new Error('Tabs is only accept Tab as children')
         }
       }
       return (
         <div class={s.tabs}>
           <nav>
-            <Transition name="fade">
-              <ol>
-                {tabs.map((item) => <li
-                  class={item.props?.name === props.selected ? s.selected : ''}
-                  onClick={() => props.onUpdateSelected?.(item.props?.name)}
-                >
-                  {item.props?.name}
-                </li>)}
-              </ol>
-            </Transition>
+            <ol>
+              {tab.map((item) => <li
+                class={item.props?.name === props.selected ? s.selected : ''}
+                onClick={() => props.onUpdateSelected?.(item.props?.name)}
+              >
+                {item.props?.name}
+              </li>)}
+            </ol>
             <div>
-              {tabs.find(item => item.props?.name === props.selected)}
+              {tab.find(item => item.props?.name === props.selected)}
             </div>
           </nav>
         </div>
