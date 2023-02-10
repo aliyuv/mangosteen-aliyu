@@ -15,4 +15,8 @@
   --navbar-bg-start: var(--welcome--bg-color--start);
   --navbar-bg-end: var(--welcome--bg-color--end);
   --navbar-text: white;
+  --z-index-overlay: 8;
+  --overlay-mask-bg: rgba(0, 0, 0, 0.5);
+  --overlay-bg: white;
+  --top-safe-area-height: 24px;
 }
