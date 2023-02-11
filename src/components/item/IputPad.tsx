@@ -7,21 +7,42 @@ import { time } from "../../shared/time";
 export const InputPad = defineComponent({
   setup(props, context) {
     const buttons = [
-      { text: '1', onClick: () => { } },
-      { text: '2', onClick: () => { } },
-      { text: '3', onClick: () => { } },
-      { text: '4', onClick: () => { } },
-      { text: '5', onClick: () => { } },
-      { text: '6', onClick: () => { } },
-      { text: '7', onClick: () => { } },
-      { text: '8', onClick: () => { } },
-      { text: '9', onClick: () => { } },
-      { text: '.', onClick: () => { } },
-      { text: '0', onClick: () => { } },
+      { text: '1', onClick: () => { appenToAmount(1) } },
+      { text: '2', onClick: () => { appenToAmount(2) } },
+      { text: '3', onClick: () => { appenToAmount(3) } },
+      { text: '4', onClick: () => { appenToAmount(4) } },
+      { text: '5', onClick: () => { appenToAmount(5) } },
+      { text: '6', onClick: () => { appenToAmount(6) } },
+      { text: '7', onClick: () => { appenToAmount(7) } },
+      { text: '8', onClick: () => { appenToAmount(8) } },
+      { text: '9', onClick: () => { appenToAmount(9) } },
+      { text: '.', onClick: () => { appenToAmount('.') } },
+      { text: '0', onClick: () => { appenToAmount(0) } },
+      { text: '清空', onClick: () => { refAmount.value = '0' } },
       { text: '提交', onClick: () => { } },
-      { text: '清空', onClick: () => { } },
-
     ]
+    const refAmount = ref('0')
+    const appenToAmount = (num: string | number) => {
+      const numString = num.toString()
+      const dotIndex = refAmount.value.indexOf('.')
+      // 大于 13
+      if (refAmount.value.length >= 13) {
+        return
+      }
+      if (dotIndex >= 0 && refAmount.value.length - dotIndex > 2) { // 有小数点，且小数点后面有两位
+        return
+      }
+      if (numString === '.') {
+        if (dotIndex >= 0) { // 有小数点
+          return
+        }
+      } else {
+        if (refAmount.value === '0') {
+          refAmount.value = ''
+        }
+      }
+      refAmount.value += numString
+    }
     const refDate = ref(new Date())
     const refDatePickerVisible = ref(false)
     const showDatePicker = () => refDatePickerVisible.value = true
@@ -39,7 +60,7 @@ export const InputPad = defineComponent({
           </Popup>
         </span>
 
-        <span class={s.amount}>199.02</span>
+        <span class={s.amount}>{refAmount.value}</span>
       </div>
       <div class={s.buttons}>
         {buttons.map(button =>
