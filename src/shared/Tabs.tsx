@@ -1,4 +1,4 @@
-import { defineComponent, PropType } from "vue";
+import { defineComponent, onMounted, onUpdated, PropType, ref, watchEffect } from "vue";
 import s from "./Tabs.module.scss";
 export const Tabs = defineComponent({
   props: {
@@ -11,7 +11,31 @@ export const Tabs = defineComponent({
       required: false
     }
   },
+  /**/
   setup(props, context) {
+    const container = ref<HTMLDivElement>()
+    const selectedItem = ref<HTMLLIElement>()
+    const indicator = ref<HTMLDivElement>()
+    const x = () => {
+      watchEffect(() => {
+        if (!container.value || !selectedItem.value || !indicator.value) return () => null
+        const {
+          width
+        } = selectedItem.value.getBoundingClientRect()
+        indicator.value.style.width = width + 'px'
+        const {
+          left: left1
+        } = container.value.getBoundingClientRect()
+        const {
+          left: left2
+        } = selectedItem.value.getBoundingClientRect()
+        const left = left2 - left1
+        indicator.value.style.left = left + 'px'
+      })
+    }
+    onMounted(x)
+    onUpdated(x)
+    /**/
     return () => {
       const tab = context.slots.default?.()
       //判断是否是 Tab 组件
@@ -24,13 +48,16 @@ export const Tabs = defineComponent({
       return (
         <div class={s.tabs}>
           <nav>
-            <ol>
-              {tab.map((item) => <li
-                class={item.props?.name === props.selected ? s.selected : ''}
-                onClick={() => props.onUpdateSelected?.(item.props?.name)}
-              >
-                {item.props?.name}
-              </li>)}
+            <ol ref={container}>
+              {tab.map((item) =>
+                <li
+                  class={item.props?.name === props.selected ? s.selected : ''}
+                  onClick={() => props.onUpdateSelected?.(item.props?.name)}
+                  ref={item.props?.name === props.selected ? selectedItem : undefined}
+                >
+                  {item.props?.name}
+                </li>)}
+              <div class={s.indicator} ref={indicator}></div>
             </ol>
             <div>
               {tab.find(item => item.props?.name === props.selected)}

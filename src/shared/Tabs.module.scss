@@ -6,6 +6,17 @@
       align-items: center;
       text-align: center;
       color: var(--navbar-text);
+      position: relative;
+
+      >.indicator {
+        position: absolute;
+        height: 3px;
+        background: var(--tabs-indicator-bg);
+        left: 0;
+        bottom: -1px;
+        width: 100%;
+        transition: all 250ms linear;
+      }
 
       >li {
         flex-shrink: 0;
@@ -13,21 +24,21 @@
         padding: 12px 0;
         background: var(--navbar-bg-end);
 
-        &.selected {
-          position: relative;
+        // &.selected {
+        //   position: relative;
 
-          &::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            width: 100%;
-            background: var(--tabs-indicator-bg);
-            display: block;
-          }
-        }
+        // &::after {
+        //   content: '';
+        //   position: absolute;
+        //   bottom: 0;
+        //   left: 0;
+        //   right: 0;
+        //   height: 4px;
+        //   width: 100%;
+        //   background: var(--tabs-indicator-bg);
+        //   display: block;
+        //   // }
+        // }
       }
     }
   }
