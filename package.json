@@ -10,6 +10,7 @@
   "dependencies": {
     "sass": "1.58.0",
     "svgstore": "3.0.1",
+    "vant": "3.4.8",
     "vh-check": "2.0.5",
     "vue": "3.2.31",
     "vue-router": "4.0.14"
@@ -20,6 +21,7 @@
     "svgo": "3.0.2",
     "typescript": "4.6.3",
     "vite": "2.9.1",
+    "vite-plugin-style-import": "1.4.1",
     "vue-tsc": "0.29.8"
   }
 }
