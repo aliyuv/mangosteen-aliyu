@@ -33,7 +33,7 @@ export const InputPad = defineComponent({
         return
       }
       if (numString === '.') {
-        if (dotIndex >= 0) { // 有小数点
+        if (dotIndex >= 0) { // 有小数点  
           return
         }
       } else {

@@ -3,7 +3,7 @@
 # 代码规范
 
 ``` tsx
- const refMain = ref<HTMLElement | null>(null)
+const refMain = ref<HTMLElement | null>(null)
 ```
 
 # 使用步骤
