@@ -1,5 +1,5 @@
 import { Icon } from '../../shared/Icon'
-import { defineComponent, reactive } from 'vue'
+import { defineComponent, reactive, toRaw } from 'vue'
 import { MainLayout } from '../../Layouts/MainLayout'
 import s from './CreateTag.module.scss'
 import { Button } from '../../shared/Button'
@@ -8,8 +8,23 @@ export const CreateTag = defineComponent({
   setup(props, context) {
     const formData = reactive({
       name: '',
-      sign: 'x'
+      sign: ''
     })
+    const onSubmit = (e: Event) => {
+      console.log(toRaw(formData))
+      // const rules = [
+      //   { key: 'name', required: true, message: '必填' },
+      //   { key: 'name', pattern: /^.{1,4}$/, message: '长度为1-4个字符' },
+      //   { key: 'sign', required: true, }
+      // ]
+      // const errors = validate(formData, rules)
+      // // errors 数据结构
+      // errors ={
+      //   name: ['必填', '长度为1-4个字符'],
+      //   sign: ['必填','错误 2']
+      // }
+      e.preventDefault()
+    }
     return () => (
       <MainLayout>{{
         title: () => '新建标签',
