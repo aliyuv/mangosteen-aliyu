@@ -26,7 +26,11 @@ export const validate = <T extends FData>(formData: T, rules: Rules<T>) => {
         }
         break;
       case 'pattern':
+<<<<<<< HEAD
         if (isEmpty(value) && !rule.regex.test(isEmpty(value).toString())) {
+=======
+        if (isEmpty(value) && !rule.regex.test(value.toString())) {
+>>>>>>> 51310bb9af907a4e59d03ed20f99caa71d8a12e1
           errors[key] = errors[key] ?? []
           errors[key]?.push(message)
         }
