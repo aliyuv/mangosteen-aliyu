@@ -38,7 +38,9 @@ export const ItemCreate = defineComponent({
         title: () => '记一笔',
         default: () => <>
           <div class={s.wrapper}>
-            <Tabs selected={refkindVlue.value} onUpdateSelected={(kindValue: string) => refkindVlue.value = kindValue} class={s.tabs}>
+            <Tabs v-model:selected={refkindVlue.value}
+              onUpdate:selected={(kindValue: string) => refkindVlue.value = kindValue}
+              class={s.tabs}>
               <Tab name="支出" class={s.tags_wrapper}>
                 <div class={s.tag}>
                   <div class={s.sign}>

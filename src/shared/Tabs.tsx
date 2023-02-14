@@ -15,6 +15,7 @@ export const Tabs = defineComponent({
     }
   },
   /**/
+  emits: ['update:selected'],
   setup(props, context) {
     const container = ref<HTMLDivElement>()
     const selectedItem = ref<HTMLLIElement>()
