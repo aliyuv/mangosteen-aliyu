@@ -6,7 +6,9 @@
       align-items: center;
       text-align: center;
       color: var(--navbar-text);
-      position: relative;
+      position: sticky;
+      z-index: 1;
+      top: 0;
 
       >.indicator {
         position: absolute;
