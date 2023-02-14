@@ -9,6 +9,9 @@ export const Tabs = defineComponent({
     onUpdateSelected: {
       type: Function as PropType<(selected: string) => void>,
       required: false
+    },
+    classPrefix: {
+      type: String as PropType<string>,
     }
   },
   /**/
@@ -31,10 +34,12 @@ export const Tabs = defineComponent({
         } = selectedItem.value.getBoundingClientRect()
         const left = left2 - left1
         indicator.value.style.left = left + 'px'
+        console.log(left1, left2)
       })
     }
     onMounted(x)
     onUpdated(x)
+    const cp = props.classPrefix
     /**/
     return () => {
       const tab = context.slots.default?.()
@@ -46,13 +51,16 @@ export const Tabs = defineComponent({
         }
       }
       return (
-        <div class={s.tabs}>
+        <div class={[s.tabs, `${cp}_tabs`]}>
           <nav>
-            <ol ref={container}>
+            <ol ref={container} class={[s.tabs_nav, `${cp}_tabs_nav`]}>
               {tab.map((item) =>
                 <li
-                  class={item.props?.name === props.selected ? s.selected : ''}
-                  onClick={() => props.onUpdateSelected?.(item.props?.name)}
+                  class={[
+                    item.props?.name === props.selected ? s.selected : '',
+                    `${cp}_tabs_nav_item`
+                  ]}
+                  onClick={() => context.emit('update:selected', item.props?.name)}
                   ref={item.props?.name === props.selected ? selectedItem : undefined}
                 >
                   {item.props?.name}
