@@ -1,9 +1,23 @@
 import { defineComponent } from 'vue'
-import s from './EditTag.module.scss'
+import { MainLayout } from '../../Layouts/MainLayout'
+import { Button } from '../../shared/Button'
+import { Icon } from '../../shared/Icon'
+import s from './Tag.module.scss'
+import { TagForm } from './TagForm'
 export const EditTag = defineComponent({
   setup(props, context) {
     return () => (
-      <div class={s.wrapper}>编辑标签</div>
+      <MainLayout>{{
+        title: () => '标签详情',
+        icon: () => <Icon name="left" onClick={() => { }} />,
+        default: () => <>
+          <TagForm isinTabBtnvs={false} />
+          <div class={s.actions}>
+            <Button level='danger' class={s.removeTags} onClick={() => { }}>保存</Button>
+            <Button level='danger' class={s.removeTagsAndItems} onClick={() => { }}>删除标签</Button>
+          </div>
+        </>
+      }}</MainLayout>
     )
   }
 })

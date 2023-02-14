@@ -48,4 +48,27 @@
     color: var(--error-color);
     font-size: 12px;
   }
+
+
+}
+
+.actions {
+  padding: 0 16px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  .removeTags,
+  .removeTagsAndItems {
+    width: 100%;
+
+
+    & {
+      &:not(:last-child) {
+        background-color: var(--button-save-bg);
+        border-color: var(--button-save-bg);
+        margin-bottom: 8px;
+      }
+    }
+  }
 }
