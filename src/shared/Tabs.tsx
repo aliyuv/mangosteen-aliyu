@@ -35,7 +35,6 @@ export const Tabs = defineComponent({
         } = selectedItem.value.getBoundingClientRect()
         const left = left2 - left1
         indicator.value.style.left = left + 'px'
-        console.log(left1, left2)
       })
     }
     onMounted(x)
