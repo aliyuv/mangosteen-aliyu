@@ -6,6 +6,7 @@
   align-items: center;
   border: 1px solid red;
   background: var(--overlay-mask-bg);
+  z-index: 64; // 特殊处理
 
   &_inner {
     background: var(--bg);
