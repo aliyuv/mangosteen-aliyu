@@ -35,6 +35,10 @@ export const ItemList = defineComponent({
         refOverLayVisible.value = true;
       }
     })
+    const onSubmitCustomTime = (e: Event) => {
+      e.preventDefault();
+      refOverLayVisible.value = false;
+    }
     return () => (
       <div class={s.wrapper}>
         <MainLayout>{{
@@ -73,8 +77,15 @@ export const ItemList = defineComponent({
                   请选择时间
                 </header>
                 <main>
-                  <Form>
+                  <Form onSubmit={onSubmitCustomTime}>
                     <FormItem label="开始时间" v-model={customTime.start} type="date" />
+                    <FormItem label="结束时间" v-model={customTime.end} type="date" />
+                    <FormItem>
+                      <div class={s.actions}>
+                        <button type="button">取消</button>
+                        <button type="submit">确认</button>
+                      </div>
+                    </FormItem>
                   </Form>
                 </main>
               </div>
