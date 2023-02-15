@@ -5,17 +5,14 @@ import { Button } from "../shared/Button"
 import { Center } from "../shared/Center"
 import { FloatButton } from "../shared/FloatButton"
 import { Icon } from "../shared/Icon"
-import { Overlay } from "../shared/Overlay"
+import { OverlayIcon } from "../shared/Overlay"
 import s from "./StartPage.module.scss"
 export const StartPage = defineComponent({
   setup(props, context) {
     const isVisiable = ref(false)
-    const clcikMenu = () => {
-      isVisiable.value = !isVisiable.value
-    }
     return () => (
       <MainLayout>{{
-        icon: () => <Icon name="menu" class={s.navIcon} onClick={clcikMenu} />,
+        icon: () => <OverlayIcon />,
         title: () => <span>山竹记账</span>,
         default: () => <>
           <Center class={s.pig_wrapper}>
@@ -27,11 +24,8 @@ export const StartPage = defineComponent({
             </RouterLink>
           </div>
           <RouterLink to="/items/create">
-            <FloatButton IconName="add" />
+            <FloatButton iconName="add" />
           </RouterLink>
-          {
-            isVisiable.value && <Overlay onClose={() => isVisiable.value = false} />
-          }
         </>
       }}</MainLayout>
     )

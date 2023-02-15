@@ -2,7 +2,7 @@ import { Overlay } from "vant";
 import { defineComponent, reactive, ref, watchEffect } from "vue";
 import { MainLayout } from "../../Layouts/MainLayout";
 import { Form, FormItem } from "../../shared/Form";
-import { Icon } from "../../shared/Icon";
+import { OverlayIcon } from "../../shared/Overlay";
 import { Tab, Tabs } from "../../shared/Tabs";
 import { Time } from "../../shared/time";
 import s from "./ItemList.module.scss";
@@ -43,7 +43,7 @@ export const ItemList = defineComponent({
       <div class={s.wrapper}>
         <MainLayout>{{
           title: () => "山竹记账",
-          icon: () => <Icon name="menu" onClick={() => { }} />,
+          icon: () => <OverlayIcon />,
           default: () => <>
             <Tabs classPrefix={'customTabs'} v-model:selected={refSelected.value}
               onUpdate:selected={onSelect}>
