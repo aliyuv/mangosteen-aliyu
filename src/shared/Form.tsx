@@ -1,13 +1,13 @@
-import { computed, defineComponent, PropType } from "vue";
-import { EmojiSelect } from "./EmojiSelect";
-import s from "./Form.module.scss";
+import { computed, defineComponent, PropType } from 'vue';
+import { EmojiSelect } from './EmojiSelect';
+import s from './Form.module.scss';
 export const Form = defineComponent({
   props: {
     onSubmit: {
       type: Function as PropType<(e: Event) => void>,
     }
   },
-  setup(props, context) {
+  setup: (props, context) => {
     return () => (
       <form class={s.form} onSubmit={props.onSubmit}>
         {context.slots.default?.()}
@@ -19,42 +19,39 @@ export const Form = defineComponent({
 export const FormItem = defineComponent({
   props: {
     label: {
-      type: String,
+      type: String as PropType<string>
     },
     modelValue: {
-      type: [String, Number],
+      type: [String, Number] as PropType<string | number>
     },
     type: {
-      type: String as PropType<"text" | "emojSelect" | "date">,
+      type: String as PropType<'text' | 'emojiSelect' | 'date'>,
     },
     error: {
-      type: String,
+      type: String as PropType<string>
     }
   },
-
-  setup(props, context) {
+  setup: (props, context) => {
     const content = computed(() => {
       switch (props.type) {
-        case "text":
+        case 'text':
           return <input
             value={props.modelValue}
-            onInput={(e) => context.emit("update:modelValue", (e.target as HTMLInputElement).value)}
-            class={[s.formItem, s.input, s.error]}
-          />
-        case "emojSelect":
+            onInput={e => context.emit('update:modelValue', (e.target as HTMLInputElement).value)}
+            class={[s.formItem, s.input, s.error]} />
+        case 'emojiSelect':
           return <EmojiSelect
             modelValue={props.modelValue?.toString()}
-            onUpdate:modelValue={value => context.emit("update:modelValue", value)}
-            class={[s.formItem, s.emojiList, s.error]}
-          />
-        case "date":
+            onUpdate:modelValue={value => context.emit('update:modelValue', value)}
+            class={[s.formItem, s.emojiList, s.error]} />
+        case 'date':
           return <input />
         case undefined:
           return context.slots.default?.()
       }
     })
-    return () => (
-      <div class={s.formRow}>
+    return () => {
+      return <div class={s.formRow}>
         <label class={s.formLabel}>
           {props.label &&
             <span class={s.formItem_name}>{props.label}</span>
@@ -62,8 +59,13 @@ export const FormItem = defineComponent({
           <div class={s.formItem_value}>
             {content.value}
           </div>
+          {props.error &&
+            <div class={s.formItem_errorHint}>
+              <span>{props.error}</span>
+            </div>
+          }
         </label>
       </div>
-    )
+    }
   }
 })
