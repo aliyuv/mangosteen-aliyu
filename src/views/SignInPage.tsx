@@ -1,3 +1,4 @@
+import axios from "axios";
 import { defineComponent, reactive } from "vue";
 import { MainLayout } from "../Layouts/MainLayout";
 import { Button } from "../shared/Button";
@@ -27,7 +28,8 @@ export const SignInPage = defineComponent({
       ]))
     }
     const onClickSendValidationCode = () => {
-      console.log('点击了发送验证码')
+      const response = axios.post('/api/v1/validation_codes', { email: formData.email })
+      console.log(response)
     }
     return () => (
       <MainLayout>{{
@@ -51,7 +53,7 @@ export const SignInPage = defineComponent({
                 onClick={onClickSendValidationCode}
               />
               <FormItem style={{ paddingTop: '96px' }}>
-                <Button>登录</Button>
+                <Button type="submit">登录</Button>
               </FormItem>
             </Form>
           </div>
