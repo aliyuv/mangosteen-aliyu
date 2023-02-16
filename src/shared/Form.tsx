@@ -46,6 +46,10 @@ export const FormItem = defineComponent({
     countFrom: {
       type: Number as PropType<number>,
       default: 60
+    },
+    disabled: {
+      type: Boolean as PropType<boolean>,
+      default: false
     }
   },
   emits: ['update:modelValue'],
@@ -103,7 +107,7 @@ export const FormItem = defineComponent({
               placeholder={props.placeholder} />
             <Button class={[s.formItem, s.button, s.validationCodeButton]}
               onClick={props.onClick}
-              disabled={isCounting.value}>
+              disabled={isCounting.value || props.disabled}>
               {isCounting.value ? `${count.value}秒后重发` : '发送验证码'}
             </Button>
           </>
