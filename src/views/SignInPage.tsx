@@ -1,5 +1,6 @@
 import axios from "axios";
 import { defineComponent, reactive, ref } from "vue";
+import { useRouter } from "vue-router";
 import { useBool } from "../hook/useBool";
 import { MainLayout } from "../Layouts/MainLayout";
 import { Button } from "../shared/Button";
@@ -10,6 +11,7 @@ import { hasError, validate } from "../shared/validate";
 import s from "./SignInPage.module.scss";
 export const SignInPage = defineComponent({
   setup: (props, context) => {
+    const router = useRouter()
     const formData = reactive({
       email: 'zhanyuim@gmail.com',
       code: ''
@@ -31,7 +33,9 @@ export const SignInPage = defineComponent({
         { key: 'code', type: 'required', message: '必填' },
       ]))
       if (!hasError(errors)) {
-        const response = await http.post('/session', formData)
+        const response = await http.post<{ jwt: string }>('/session', formData)
+        window.localStorage.setItem('jwt', response.data.jwt)
+        router.push('/')
       }
     }
     const onError = (error: any) => {
