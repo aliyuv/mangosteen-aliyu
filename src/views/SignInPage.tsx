@@ -26,6 +26,9 @@ export const SignInPage = defineComponent({
         { key: 'code', type: 'required', message: '必填' },
       ]))
     }
+    const onClickSendValidationCode = () => {
+      console.log('点击了发送验证码')
+    }
     return () => (
       <MainLayout>{{
         title: () => "登录",
@@ -45,6 +48,7 @@ export const SignInPage = defineComponent({
               <FormItem label="验证码" type="validationCode" placeholder="请输入六位数字"
                 v-model={formData.code}
                 error={errors.code?.[0]}
+                onClick={onClickSendValidationCode}
               />
               <FormItem style={{ paddingTop: '96px' }}>
                 <Button>登录</Button>
