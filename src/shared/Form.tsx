@@ -40,12 +40,30 @@ export const FormItem = defineComponent({
       type: Array as PropType<Array<{ value: string, text: string }>>
     },
     onClick: {
-      type: Function as PropType<(e: MouseEvent) => void>
+      type: Function as PropType<() => void>
+    },
+    countFrom: {
+      type: Number as PropType<number>,
+      default: 60
     }
   },
   emits: ['update:modelValue'],
   setup: (props, context) => {
     const refDateVisible = ref(false);
+    const timer = ref(0);
+    const count = ref(props.countFrom);
+    const isCounting = computed(() => !!timer.value); // 这句话的意思是：如果timer.value不是0，就返回true，否则返回false
+    const onClickSendValidationCode = () => {
+      props.onClick?.()
+      timer.value = window.setInterval(() => {
+        count.value -= 1
+        if (count.value === 0) {
+          window.clearInterval(timer.value)
+          timer.value = 0
+          count.value = props.countFrom
+        }
+      }, 1000)
+    }
     const content = computed(() => {
       switch (props.type) {
         case 'text':
@@ -82,8 +100,10 @@ export const FormItem = defineComponent({
           return <>
             <input class={[s.formItem, s.input, s.validationCodeInput]}
               placeholder={props.placeholder} />
-            <Button class={[s.formItem, s.button, s.validationCodeButton]} onClick={props.onClick}>
-              发送验证码
+            <Button class={[s.formItem, s.button, s.validationCodeButton]}
+              onClick={onClickSendValidationCode}
+              disabled={isCounting.value}>
+              {isCounting.value ? `${count.value}秒后重发` : '发送验证码'}
             </Button>
           </>
         case 'select':

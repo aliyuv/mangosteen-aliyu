@@ -28,8 +28,8 @@ export const SignInPage = defineComponent({
       ]))
     }
     const onClickSendValidationCode = () => {
-      const response = axios.post('/api/v1/validation_codes', { email: formData.email })
-      console.log(response)
+      // const response = axios.post('/api/v1/validation_codes', { email: formData.email })
+      // console.log(response)
     }
     return () => (
       <MainLayout>{{
@@ -47,7 +47,9 @@ export const SignInPage = defineComponent({
                 v-model={formData.email}
                 error={errors.email?.[0]}
               />
-              <FormItem label="验证码" type="validationCode" placeholder="请输入六位数字"
+              <FormItem label="验证码" type="validationCode"
+                placeholder="请输入六位数字"
+                countFrom={60}
                 v-model={formData.code}
                 error={errors.code?.[0]}
                 onClick={onClickSendValidationCode}
