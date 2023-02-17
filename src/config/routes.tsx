@@ -13,6 +13,7 @@ import { CreateTag } from "../components/tag/CreateTag";
 import { EditTag } from "../components/tag/EditTag";
 import { SignInPage } from "../views/SignInPage";
 import { StatisticsPage } from "../views/StatisticsPage";
+import { http } from "../shared/Http";
 
 export const routes: RouteRecordRaw[] = [
   { path: '/', redirect: '/welcome' },
@@ -33,6 +34,13 @@ export const routes: RouteRecordRaw[] = [
   { path: '/start', component: StartPage },
   {
     path: '/items', component: ItemPage,
+    beforeEnter: async (to, from, next) => {
+      await http.get('/me').catch(() => {
+        console.log('未登录')
+        next('/sign_in?return_to=' + encodeURIComponent(to.fullPath))
+      })
+      next()
+    },
     children: [
       { path: '', component: ItemList },
       { path: 'create', component: ItemCreate },

@@ -28,8 +28,11 @@ export class Http {
 
 export const http = new Http('/api/v1')
 
-http.instance.interceptors.response.use(response => {
-  console.log('response')
+http.instance.interceptors.request.use(response => {
+  const jwt = window.localStorage.getItem('jwt')
+  if (jwt) {
+    response.headers!.Authorization = `Bearer ${jwt}`
+  }
   return response
 }, (error) => {
   if (error.response) {
