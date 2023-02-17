@@ -29,7 +29,11 @@ export const Welcome = defineComponent({
     })
     return () => <>
       <div class={s.wrapper}>
-        <div class={s.skiplink}><RouterLink to="/start">跳过</RouterLink></div>
+        <div class={s.skiplink}
+          onClick={() => window.localStorage.setItem('skipFeatures', 'yes')}
+        >
+          <RouterLink to="/start">跳过</RouterLink>
+        </div>
         <header>
           <svg>
             <use xlinkHref='#mangosteen' />
