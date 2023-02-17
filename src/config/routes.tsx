@@ -34,13 +34,6 @@ export const routes: RouteRecordRaw[] = [
   { path: '/start', component: StartPage },
   {
     path: '/items', component: ItemPage,
-    beforeEnter: async (to, from, next) => {
-      await http.get('/me').catch(() => {
-        console.log('未登录')
-        next('/sign_in?return_to=' + encodeURIComponent(to.fullPath))
-      })
-      next()
-    },
     children: [
       { path: '', component: ItemList },
       { path: 'create', component: ItemCreate },

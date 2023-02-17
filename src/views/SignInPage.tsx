@@ -7,6 +7,7 @@ import { Button } from "../shared/Button";
 import { Form, FormItem } from "../shared/Form";
 import { http } from "../shared/Http";
 import { Icon } from "../shared/Icon";
+import { resfresMe } from "../shared/me";
 import { hasError, validate } from "../shared/validate";
 import s from "./SignInPage.module.scss";
 export const SignInPage = defineComponent({
@@ -38,6 +39,7 @@ export const SignInPage = defineComponent({
         window.localStorage.setItem('jwt', response.data.jwt)
         ///sign_to?return_to=/tags
         const returnTo = route.query.return_to?.toString()
+        resfresMe() // 在跳转之前获取 user 信息
         router.push(returnTo || '/')
       }
     }
