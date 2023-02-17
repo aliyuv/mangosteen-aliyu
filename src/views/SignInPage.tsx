@@ -1,6 +1,6 @@
 import axios from "axios";
 import { defineComponent, reactive, ref } from "vue";
-import { useRouter } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useBool } from "../hook/useBool";
 import { MainLayout } from "../Layouts/MainLayout";
 import { Button } from "../shared/Button";
@@ -11,7 +11,6 @@ import { hasError, validate } from "../shared/validate";
 import s from "./SignInPage.module.scss";
 export const SignInPage = defineComponent({
   setup: (props, context) => {
-    const router = useRouter()
     const formData = reactive({
       email: 'zhanyuim@gmail.com',
       code: ''
@@ -22,6 +21,8 @@ export const SignInPage = defineComponent({
     })
     const refValidationCode = ref<any>()
     const { ref: refDisabled, toggle, on: disabled, off: enable } = useBool(false)
+    const router = useRouter()
+    const route = useRoute()
     const onSubmit = async (e: Event) => {
       e.preventDefault()
       Object.assign(errors, {
@@ -35,7 +36,9 @@ export const SignInPage = defineComponent({
       if (!hasError(errors)) {
         const response = await http.post<{ jwt: string }>('/session', formData)
         window.localStorage.setItem('jwt', response.data.jwt)
-        router.push('/')
+        ///sign_to?return_to=/tags
+        const returnTo = route.query.return_to?.toString()
+        router.push(returnTo || '/')
       }
     }
     const onError = (error: any) => {
@@ -60,7 +63,6 @@ export const SignInPage = defineComponent({
               <Icon class={s.icon} name="mangosteen" />
               <h1 class={s.appName}>山竹记账</h1>
             </div>
-            <div>{JSON.stringify(formData)}</div>
             <Form onSubmit={onSubmit}>
               <FormItem label="邮箱地址" type="text"
                 placeholder="请输入邮箱地址,然后点击发送验证码"
