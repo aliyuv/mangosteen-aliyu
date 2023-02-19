@@ -11,7 +11,7 @@ export const ItemTags = defineComponent({
       required: true
     },
     selected: {
-      type: Number as PropType<number>,
+      type: Number as PropType<number>
     }
   },
   emits: ['update:selected'],
@@ -38,7 +38,9 @@ export const ItemTags = defineComponent({
         </div>
         {
           tags.value.map(tag =>
-            <div class={[s.tag, props.selected === tag.id ? s.selected : '']}>
+            <div class={[s.tag, props.selected === tag.id ? s.selected : '']}
+              onClick={() => onSelect(tag)}
+            >
               <div class={s.sign}>
                 {tag.sign}
               </div>

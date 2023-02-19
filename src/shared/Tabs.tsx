@@ -67,8 +67,8 @@ export const Tabs = defineComponent({
                 </li>)}
               <div class={s.indicator} ref={indicator}></div>
             </ol>
-            <div v-show={props.selected}>
-              {tab.find(item => item.props?.name === props.selected)}
+            <div>
+              {tab.map(item => <div v-show={item.props?.name === props.selected}>{item}</div>)}
             </div>
           </nav>
         </div>

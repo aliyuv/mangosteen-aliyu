@@ -1,4 +1,4 @@
-import { defineComponent, ref } from "vue";
+import { defineComponent, PropType, ref } from "vue";
 import { Icon } from "../../shared/Icon";
 import s from "./InputPad.module.scss";
 //@ts-ignore
@@ -11,6 +11,9 @@ export const InputPad = defineComponent({
     },
     amount: {
       type: Number,
+    },
+    onSubmit: {
+      type: Function as PropType<() => void>,
     }
   },
   emits: ['update:happenAt', 'update:amount'],
@@ -31,6 +34,7 @@ export const InputPad = defineComponent({
       {
         text: '提交', onClick: () => {
           context.emit('update:amount', parseFloat(refAmount.value) * 100) //以分为单位
+          props.onSubmit?.()
         }
       },
     ]

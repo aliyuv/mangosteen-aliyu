@@ -17,6 +17,20 @@ type Tag = {
   kind: expenses | income
 }
 
+declare module '*.scss' {
+  const content: Record<string, any> = {}
+  export default content
+}
+
+type Item = {
+  id: number,
+  user_id: number,
+  amount: number,
+  tags_id: number[],
+  happened_at: string,
+  kind: expenses | income,
+}
+
 type Rescources<T = any> = {
   resources:T[],
   pager: {
@@ -24,4 +38,12 @@ type Rescources<T = any> = {
     per_page: number,
     count: number,
   }
+}
+
+type Rescource<T> = {
+  resource: T
+}
+
+type RescourceError = {
+  errors: Record<string, string[]>
 }
