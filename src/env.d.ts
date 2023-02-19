@@ -6,3 +6,5 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
+
+type JSONValue = null | Boolean | number | JSONValue[] | Record<string, JSONValue>
