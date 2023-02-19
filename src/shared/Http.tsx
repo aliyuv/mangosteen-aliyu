@@ -13,15 +13,15 @@ export class Http {
     })
   }
   // read
-  get<R = unknown>(url: string, query?: Record<string, string>, config?: GetConfig) {
+  get<R = unknown>(url: string, query?: JSONValue, config?: GetConfig) {
     return this.instance.request<R>({ ...config, url: url, params: query, method: 'get' })
   }
   // create
-  post<R = unknown>(url: string, data?: Record<string, JSONValue>, config?: PostConfig) {
+  post<R = unknown>(url: string, data?: JSONValue, config?: PostConfig) {
     return this.instance.request<R>({ ...config, url, data, method: 'post' })
   }
   // update
-  patch<R = unknown>(url: string, data?: Record<string, JSONValue>, config?: PatchConfig) {
+  patch<R = unknown>(url: string, data?: JSONValue, config?: PatchConfig) {
     return this.instance.request<R>({ ...config, url, data, method: 'patch' })
   }
   // destroy
