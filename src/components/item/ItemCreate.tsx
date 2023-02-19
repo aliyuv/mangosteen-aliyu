@@ -8,6 +8,9 @@ import { ItemTags } from "./Tags";
 export const ItemCreate = defineComponent({
   setup(props, context) {
     const refkindVlue = ref('支出')
+    const refTagId = ref<number>()
+    const refHappenAt = ref<string>(new Date().toISOString())
+    const refAmount = ref<number>()
     return () => (
       <MainLayout>{{
         icon: () => <Icon name="left" class={s.navIcon} />,
@@ -18,14 +21,18 @@ export const ItemCreate = defineComponent({
               onUpdate:selected={(kindValue: string) => refkindVlue.value = kindValue}
               class={s.tabs}>
               <Tab name="支出">
-                <ItemTags kind="expenses" />
+                {refAmount.value}
+                <ItemTags kind="expenses" v-model:selected={refTagId.value} />
               </Tab>
               <Tab name="收入" >
-                <ItemTags kind="income" />
+                <ItemTags kind="income" v-model:selected={refTagId.value} />
               </Tab>
             </Tabs>
             <div class={s.inputPad_wrapper}>
-              <InputPad />
+              <InputPad
+                v-model:happenAt={refHappenAt.value}
+                v-model:amount={refAmount.value}
+              />
             </div>
           </div>
         </>
