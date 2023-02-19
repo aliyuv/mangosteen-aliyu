@@ -1,5 +1,6 @@
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import { MainLayout } from "../../Layouts/MainLayout";
+import { http } from "../../shared/Http";
 import { Icon } from "../../shared/Icon";
 import { Tabs, Tab } from "../../shared/Tabs";
 import { InputPad } from "./IputPad";
@@ -7,31 +8,22 @@ import s from "./ItemCreate.module.scss";
 export const ItemCreate = defineComponent({
   setup(props, context) {
     const refkindVlue = ref('支出')
-    const refExpensesTags = ref([
-      { id: 1, name: '餐饮', sign: '¥', cantegory: 'expenses' },
-      { id: 2, name: '交通', sign: '¥', cantegory: 'expenses' },
-      { id: 3, name: '购物', sign: '¥', cantegory: 'expenses' },
-      { id: 4, name: '娱乐', sign: '¥', cantegory: 'expenses' },
-      { id: 5, name: '医疗', sign: '¥', cantegory: 'expenses' },
-      { id: 6, name: '住房', sign: '¥', cantegory: 'expenses' },
-      { id: 7, name: '学习', sign: '¥', cantegory: 'expenses' },
-      { id: 8, name: '通讯', sign: '¥', cantegory: 'expenses' },
-      { id: 9, name: '人情', sign: '¥', cantegory: 'expenses' },
-      { id: 10, name: '旅行', sign: '¥', cantegory: 'expenses' },
-    ])
-
-    const refIncomeTags = ref([
-      { id: 1, name: '工资', sign: '¥', cantegory: 'income' },
-      { id: 2, name: '兼职', sign: '¥', cantegory: 'income' },
-      { id: 3, name: '理财', sign: '¥', cantegory: 'income' },
-      { id: 4, name: '礼金', sign: '¥', cantegory: 'income' },
-      { id: 5, name: '投资', sign: '¥', cantegory: 'income' },
-      { id: 6, name: '奖金', sign: '¥', cantegory: 'income' },
-      { id: 7, name: '红包', sign: '¥', cantegory: 'income' },
-      { id: 8, name: '其他', sign: '¥', cantegory: 'income' },
-      { id: 9, name: '借入', sign: '¥', cantegory: 'income' },
-      { id: 10, name: '借出', sign: '¥', cantegory: 'income' }
-    ])
+    onMounted(async () => {
+      const response = await http.get<{ resources: Tag[] }>('/tags', {
+        kind: "expenses",
+        _mock: 'tagIndex'
+      })
+      refExpensesTags.value = response.data.resources
+    })
+    const refExpensesTags = ref<Tag[]>([])
+    onMounted(async () => {
+      const response = await http.get<{ resources: Tag[] }>('/tags', {
+        kind: 'income',
+        _mock: 'tagIndex'
+      })
+      refIncomeTags.value = response.data.resources
+    })
+    const refIncomeTags = ref<Tag[]>([])
     return () => (
       <MainLayout>{{
         icon: () => <Icon name="left" class={s.navIcon} />,
