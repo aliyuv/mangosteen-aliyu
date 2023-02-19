@@ -1,18 +1,25 @@
-import { defineComponent, onMounted, onUpdated, PropType, ref, watchEffect } from "vue";
-import s from "./Tabs.module.scss";
+import {
+  defineComponent,
+  onMounted,
+  onUpdated,
+  PropType,
+  ref,
+  watchEffect,
+} from 'vue'
+import s from './Tabs.module.scss'
 export const Tabs = defineComponent({
   props: {
     selected: {
       type: String as PropType<string>,
-      required: false
+      required: false,
     },
     onUpdateSelected: {
       type: Function as PropType<(selected: string) => void>,
-      required: false
+      required: false,
     },
     classPrefix: {
       type: String as PropType<string>,
-    }
+    },
   },
   /**/
   emits: ['update:selected'],
@@ -22,17 +29,12 @@ export const Tabs = defineComponent({
     const indicator = ref<HTMLDivElement>()
     const x = () => {
       watchEffect(() => {
-        if (!container.value || !selectedItem.value || !indicator.value) return () => null
-        const {
-          width
-        } = selectedItem.value.getBoundingClientRect()
+        if (!container.value || !selectedItem.value || !indicator.value)
+          return () => null
+        const { width } = selectedItem.value.getBoundingClientRect()
         indicator.value.style.width = width + 'px'
-        const {
-          left: left1
-        } = container.value.getBoundingClientRect()
-        const {
-          left: left2
-        } = selectedItem.value.getBoundingClientRect()
+        const { left: left1 } = container.value.getBoundingClientRect()
+        const { left: left2 } = selectedItem.value.getBoundingClientRect()
         const left = left2 - left1
         indicator.value.style.left = left + 'px'
       })
@@ -54,36 +56,43 @@ export const Tabs = defineComponent({
         <div class={[s.tabs, `${cp}_tabs`]}>
           <nav>
             <ol ref={container} class={[s.tabs_nav, `${cp}_tabs_nav`]}>
-              {tab.map((item) =>
+              {tab.map((item) => (
                 <li
                   class={[
                     item.props?.name === props.selected ? s.selected : '',
-                    `${cp}_tabs_nav_item`
+                    `${cp}_tabs_nav_item`,
                   ]}
-                  onClick={() => context.emit('update:selected', item.props?.name)}
-                  ref={item.props?.name === props.selected ? selectedItem : undefined}
+                  onClick={() =>
+                    context.emit('update:selected', item.props?.name)
+                  }
+                  ref={
+                    item.props?.name === props.selected
+                      ? selectedItem
+                      : undefined
+                  }
                 >
                   {item.props?.name}
-                </li>)}
+                </li>
+              ))}
               <div class={s.indicator} ref={indicator}></div>
             </ol>
             <div>
-              {tab.map(item => <div v-show={item.props?.name === props.selected}>{item}</div>)}
+              {tab.map((item) => (
+                <div v-show={item.props?.name === props.selected}>{item}</div>
+              ))}
             </div>
           </nav>
         </div>
       )
     }
-  }
+  },
 })
 
 export const Tab = defineComponent({
   props: {
-    name: String as PropType<string>
+    name: String as PropType<string>,
   },
   setup(props, context) {
-    return () => (
-      <div>{context.slots.default?.()}</div>
-    )
-  }
+    return () => <div>{context.slots.default?.()}</div>
+  },
 })

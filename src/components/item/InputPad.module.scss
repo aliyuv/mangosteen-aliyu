@@ -7,7 +7,7 @@
   border-top: 1px solid var(--button-border-color);
   background: var(--overlay-bg);
 
-  >.date {
+  > .date {
     font-size: 12px;
     display: flex;
     align-items: center;
@@ -22,7 +22,7 @@
     }
   }
 
-  >.amount {
+  > .amount {
     font-size: 20px;
     color: var(--amount-text);
   }
@@ -31,17 +31,17 @@
 .buttons {
   display: grid;
   grid-template-areas:
-    "n1 n2 n3 d"
-    "n4 n5 n6 d"
-    "n7 n8 n9 s"
-    "n0 n0 nd s";
+    'n1 n2 n3 d'
+    'n4 n5 n6 d'
+    'n7 n8 n9 s'
+    'n0 n0 nd s';
   grid-auto-rows: 48px;
   grid-auto-columns: 1fr;
   gap: 1px;
   background: var(--button-border-color);
   border-top: 1px solid var(--button-border-color);
 
-  >button {
+  > button {
     border: none;
     background: var(--button--font--color);
 

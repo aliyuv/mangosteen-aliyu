@@ -1,6 +1,6 @@
 .tabs {
-  >nav {
-    >ol {
+  > nav {
+    > ol {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -10,7 +10,7 @@
       z-index: 1;
       background: var(--navbar-bg-end);
 
-      >.indicator {
+      > .indicator {
         position: absolute;
         height: 3px;
         background: var(--tabs-indicator-bg);
@@ -20,11 +20,10 @@
         transition: all 250ms linear;
       }
 
-      >li {
+      > li {
         flex-shrink: 0;
         flex-grow: 1;
         padding: 12px 0;
-
 
         // &.selected {
         //   position: relative;

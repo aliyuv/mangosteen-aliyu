@@ -12,9 +12,11 @@
     cursor: not-allowed;
   }
 
-  &.normal {}
+  &.normal {
+  }
 
-  &.important {}
+  &.important {
+  }
 
   &.danger {
     background: var(--button-bg-danger);

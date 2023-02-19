@@ -7,17 +7,29 @@ import { TagForm } from './TagForm'
 export const EditTag = defineComponent({
   setup(props, context) {
     return () => (
-      <MainLayout>{{
-        title: () => '标签详情',
-        icon: () => <Icon name="left" onClick={() => { }} />,
-        default: () => <>
-          <TagForm isinTabBtnvs={false} />
-          <div class={s.actions}>
-            <Button level='danger' class={s.removeTags} onClick={() => { }}>保存</Button>
-            <Button level='danger' class={s.removeTagsAndItems} onClick={() => { }}>删除标签</Button>
-          </div>
-        </>
-      }}</MainLayout>
+      <MainLayout>
+        {{
+          title: () => '标签详情',
+          icon: () => <Icon name="left" onClick={() => {}} />,
+          default: () => (
+            <>
+              <TagForm isinTabBtnvs={false} />
+              <div class={s.actions}>
+                <Button level="danger" class={s.removeTags} onClick={() => {}}>
+                  保存
+                </Button>
+                <Button
+                  level="danger"
+                  class={s.removeTagsAndItems}
+                  onClick={() => {}}
+                >
+                  删除标签
+                </Button>
+              </div>
+            </>
+          ),
+        }}
+      </MainLayout>
     )
-  }
+  },
 })
