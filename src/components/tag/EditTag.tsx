@@ -26,9 +26,11 @@ export const EditTag = defineComponent({
         title: '确认删除',
         message: '删除后不可恢复，是否继续？',
       })
-      await http.delete(`/tags/${numberId}`, {
-        withItems: options?.withItems ? 'true' : 'false',
-      }).catch(onError)
+      await http
+        .delete(`/tags/${numberId}`, {
+          withItems: options?.withItems ? 'true' : 'false',
+        })
+        .catch(onError)
       router.back()
     }
     return () => (
@@ -40,7 +42,11 @@ export const EditTag = defineComponent({
             <>
               <TagForm isinTabBtnvs={false} id={numberId} />
               <div class={s.actions}>
-                <Button level="danger" class={s.removeTags} onClick={() => onDeleted()}>
+                <Button
+                  level="danger"
+                  class={s.removeTags}
+                  onClick={() => onDeleted()}
+                >
                   删除标签
                 </Button>
                 <Button

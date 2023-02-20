@@ -32,7 +32,9 @@ export const ItemTags = defineComponent({
     document.addEventListener('contextmenu', (e) => e.preventDefault()) // 禁用右键菜单
     const router = useRouter()
     const onLongPress = (tagId: Tag['id']) => {
-      router.push(`/tags/${tagId}/edit?kind=${props.kind}&return_to=${router.currentRoute.value.fullPath}`)
+      router.push(
+        `/tags/${tagId}/edit?kind=${props.kind}&return_to=${router.currentRoute.value.fullPath}`
+      )
     }
     const onTouchStart = (e: TouchEvent, tag: Tag) => {
       currentTag.value = e.target as HTMLDivElement
@@ -46,8 +48,15 @@ export const ItemTags = defineComponent({
       }
     }
     const onTouchMove = (e: TouchEvent) => {
-      const pointElement = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY) // 获取当前触摸点的元素
-      if (currentTag.value !== pointElement && currentTag.value?.contains(pointElement) === false) { // 如果当前触摸点的元素不是当前元素，且不是当前元素的子元素
+      const pointElement = document.elementFromPoint(
+        e.touches[0].clientX,
+        e.touches[0].clientY
+      ) // 获取当前触摸点的元素
+      if (
+        currentTag.value !== pointElement &&
+        currentTag.value?.contains(pointElement) === false
+      ) {
+        // 如果当前触摸点的元素不是当前元素，且不是当前元素的子元素
         clearTimeout(timer.value)
       }
     }
@@ -64,7 +73,7 @@ export const ItemTags = defineComponent({
             <div
               class={[s.tag, props.selected === tag.id ? s.selected : '']}
               onClick={() => onSelect(tag)}
-              onTouchstart={e => onTouchStart(e, tag)}
+              onTouchstart={(e) => onTouchStart(e, tag)}
               onTouchend={onTouchEnd}
             >
               <div class={s.sign}>{tag.sign}</div>
