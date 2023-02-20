@@ -1,5 +1,5 @@
 import { Form, FormItem } from '../../shared/Form'
-import { defineComponent, PropType, reactive } from 'vue'
+import { defineComponent, onMounted, PropType, reactive } from 'vue'
 import { Button } from '../../shared/Button'
 import { hasError, Rules, validate } from '../../shared/validate'
 import s from './Tag.module.scss'
@@ -38,20 +38,29 @@ export const TagForm = defineComponent({
       })
       Object.assign(errors, validate(formData, rules))
       if (!hasError(errors)) {
-        const promise = await formData.id ? http.patch(`/tags/${formData.id}`, formData, {
-          params: {
-            _mock: 'tagEdit'
-          }
-        }) : http.post('/tags', formData, {
-          params: {
-            _mock: 'tagCreate'
-          }
-        })
+        const promise = await formData.id
+          ? http.patch(`/tags/${formData.id}`, formData, {
+            params: {
+              _mock: 'tagEdit'
+            }
+          })
+          : http.post('/tags', formData, {
+            params: {
+              _mock: 'tagCreate'
+            }
+          })
         await promise.catch((error) => onFormError(error, (data) => Object.assign(errors, data))
         )
         router.back()
       }
     }
+    onMounted(async () => {
+      if (!props.id) return
+      const response = await http.get<Rescource<Tag>>(`/tags/${props.id}`, {
+        _mock: 'tagShow'
+      })
+      Object.assign(formData, response.data.resource)
+    })
     return () => (
       <Form onSubmit={onSubmit}>
         <FormItem
