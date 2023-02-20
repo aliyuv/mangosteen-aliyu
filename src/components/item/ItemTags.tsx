@@ -1,4 +1,4 @@
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, PropType, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 import { Button } from '../../shared/Button'
 import { http } from '../../shared/Http'
@@ -27,9 +27,30 @@ export const ItemTags = defineComponent({
     const onSelect = (tag: Tag) => {
       context.emit('update:selected', tag.id)
     }
+    const timer = ref<number>()
+    const currentTag = ref<HTMLDivElement>()
+    document.addEventListener('contextmenu', (e) => e.preventDefault()) // 禁用右键菜单
+    const onLongPress = () => {
+      console.log('长按')
+    }
+    const onTouchStart = (e: TouchEvent) => {
+      currentTag.value = e.target as HTMLDivElement
+      timer.value = window.setTimeout(onLongPress, 500)
+    }
+    const onTouchEnd = (e: TouchEvent) => {
+      if (timer.value) {
+        clearTimeout(timer.value)
+      }
+    }
+    const onTouchMove = (e: TouchEvent) => {
+      const pointElement = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY) // 获取当前触摸点的元素
+      if (currentTag.value !== pointElement && currentTag.value?.contains(pointElement) === false) { // 如果当前触摸点的元素不是当前元素，且不是当前元素的子元素
+        clearTimeout(timer.value)
+      }
+    }
     return () => (
       <>
-        <div class={s.tags_wrapper}>
+        <div class={s.tags_wrapper} onTouchmove={onTouchMove}>
           <RouterLink to={`/tags/create?kind=${props.kind}`} class={s.tag}>
             <div class={s.sign}>
               <Icon name="add" class={s.createTag} />
@@ -40,6 +61,8 @@ export const ItemTags = defineComponent({
             <div
               class={[s.tag, props.selected === tag.id ? s.selected : '']}
               onClick={() => onSelect(tag)}
+              onTouchstart={onTouchStart}
+              onTouchend={onTouchEnd}
             >
               <div class={s.sign}>{tag.sign}</div>
               <div class={s.name}>{tag.name}</div>
