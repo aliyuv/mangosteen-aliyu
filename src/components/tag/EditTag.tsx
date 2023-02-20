@@ -15,13 +15,13 @@ export const EditTag = defineComponent({
             <>
               <TagForm isinTabBtnvs={false} />
               <div class={s.actions}>
-                <Button level="danger" class={s.removeTags} onClick={() => { }}>
+                <Button level="danger" class={s.removeTags} onClick={() => {}}>
                   保存
                 </Button>
                 <Button
                   level="danger"
                   class={s.removeTagsAndItems}
-                  onClick={() => { }}
+                  onClick={() => {}}
                 >
                   删除标签
                 </Button>
