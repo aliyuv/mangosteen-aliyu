@@ -11,10 +11,14 @@ export const TagForm = defineComponent({
     isinTabBtnvs: {
       type: Boolean as PropType<boolean>,
     },
+    id: {
+      type: Number as PropType<number>,
+    }
   },
   setup(props, context) {
     const route = useRoute()
     const formData = reactive({
+      id: undefined,
       name: '',
       sign: '',
       kind: route.query.kind?.toString(),
@@ -34,9 +38,16 @@ export const TagForm = defineComponent({
       })
       Object.assign(errors, validate(formData, rules))
       if (!hasError(errors)) {
-        const response = await http.post('/tags', formData, {
-          params: { _mock: 'tagCreate' },
-        }).catch((error) => onFormError(error, (data) => Object.assign(errors, data.errors))
+        const promise = await formData.id ? http.patch(`/tags/${formData.id}`, formData, {
+          params: {
+            _mock: 'tagEdit'
+          }
+        }) : http.post('/tags', formData, {
+          params: {
+            _mock: 'tagCreate'
+          }
+        })
+        await promise.catch((error) => onFormError(error, (data) => Object.assign(errors, data))
         )
         router.back()
       }
