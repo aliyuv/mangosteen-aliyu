@@ -53,3 +53,8 @@ type Rescource<T> = {
 type RescourceError = {
   errors: Record<string, string[]>
 }
+
+type User = {
+  id: number
+  email: string
+}
