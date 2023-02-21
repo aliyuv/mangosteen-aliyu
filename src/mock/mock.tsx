@@ -4,13 +4,15 @@ type Mock = (config: AxiosRequestConfig) => [number, any]
 
 faker.setLocale('zh_CN')
 
-
 export const mockItemIndexBalance: Mock = (responseConfig) => {
-  return [200, {
-    expenses: faker.datatype.number({ min: 100, max: 10000 }),
-    income: faker.datatype.number({ min: 100, max: 10000 }),
-    balance: faker.datatype.number({ min: 100, max: 10000 }),
-  }]
+  return [
+    200,
+    {
+      expenses: faker.datatype.number({ min: 100, max: 10000 }),
+      income: faker.datatype.number({ min: 100, max: 10000 }),
+      balance: faker.datatype.number({ min: 100, max: 10000 }),
+    },
+  ]
 }
 export const mockItemIndex: Mock = (responseConfig) => {
   const { kind, page } = responseConfig.params
@@ -34,7 +36,7 @@ export const mockItemIndex: Mock = (responseConfig) => {
       income: faker.datatype.number({ min: 100, max: 10000 }),
       expenses: faker.datatype.number({ min: 100, max: 10000 }),
       balance: faker.datatype.number({ min: 100, max: 10000 }),
-    }
+    },
   })
   if (!page || page === 1) {
     return [200, createBody(25)]
