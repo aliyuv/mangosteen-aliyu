@@ -8,8 +8,8 @@ import { Time } from './time'
 export const Form = defineComponent({
   props: {
     onSubmit: {
-      type: Function as PropType<(e: Event) => void>,
-    },
+      type: Function as PropType<(e: Event) => void>
+    }
   },
   setup: (props, context) => {
     return () => (
@@ -17,42 +17,40 @@ export const Form = defineComponent({
         {context.slots.default?.()}
       </form>
     )
-  },
+  }
 })
 
 export const FormItem = defineComponent({
   props: {
     label: {
-      type: String as PropType<string>,
+      type: String as PropType<string>
     },
     modelValue: {
-      type: [String, Number] as PropType<string | number>,
+      type: [String, Number] as PropType<string | number>
     },
     type: {
-      type: String as PropType<
-        'text' | 'emojiSelect' | 'date' | 'validationCode' | 'select'
-      >,
+      type: String as PropType<'text' | 'emojiSelect' | 'date' | 'validationCode' | 'select'>
     },
     error: {
-      type: String as PropType<string>,
+      type: String as PropType<string>
     },
     placeholder: {
-      type: String as PropType<string>,
+      type: String as PropType<string>
     },
     options: {
-      type: Array as PropType<Array<{ value: string; text: string }>>,
+      type: Array as PropType<Array<{ value: string; text: string }>>
     },
     onClick: {
-      type: Function as PropType<() => void>,
+      type: Function as PropType<() => void>
     },
     countFrom: {
       type: Number as PropType<number>,
-      default: 60,
+      default: 60
     },
     disabled: {
       type: Boolean as PropType<boolean>,
-      default: false,
-    },
+      default: false
+    }
   },
   emits: ['update:modelValue'],
   setup: (props, context) => {
@@ -78,12 +76,7 @@ export const FormItem = defineComponent({
             <input
               value={props.modelValue}
               placeholder={props.placeholder}
-              onInput={(e) =>
-                context.emit(
-                  'update:modelValue',
-                  (e.target as HTMLInputElement).value
-                )
-              }
+              onInput={(e) => context.emit('update:modelValue', (e.target as HTMLInputElement).value)}
               class={[s.formItem, s.input]}
             />
           )
@@ -91,9 +84,7 @@ export const FormItem = defineComponent({
           return (
             <EmojiSelect
               modelValue={props.modelValue?.toString()}
-              onUpdate:modelValue={(value) =>
-                context.emit('update:modelValue', value)
-              }
+              onUpdate:modelValue={(value) => context.emit('update:modelValue', value)}
               class={[s.formItem, s.emojiList, s.error]}
             />
           )
@@ -129,12 +120,7 @@ export const FormItem = defineComponent({
                 class={[s.formItem, s.input, s.validationCodeInput]}
                 placeholder={props.placeholder}
                 value={props.modelValue}
-                onInput={(e) =>
-                  context.emit(
-                    'update:modelValue',
-                    (e.target as HTMLInputElement).value
-                  )
-                }
+                onInput={(e) => context.emit('update:modelValue', (e.target as HTMLInputElement).value)}
               />
               <Button
                 class={[s.formItem, s.button, s.validationCodeButton]}
@@ -176,5 +162,5 @@ export const FormItem = defineComponent({
         </div>
       )
     }
-  },
+  }
 })

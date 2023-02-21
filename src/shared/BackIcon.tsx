@@ -15,5 +15,5 @@ export const BackIcon = defineComponent({
       }
     }
     return () => <Icon name={`left`} onClick={onClick} />
-  },
+  }
 })

@@ -7,5 +7,5 @@ export const ItemPage = defineComponent({
         <RouterView />
       </div>
     )
-  },
+  }
 })

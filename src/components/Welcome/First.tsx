@@ -18,9 +18,9 @@ export const First = defineComponent({
               还会省钱
             </h2>
           ),
-          action: () => <RouterLink to="/welcome/2">下一步</RouterLink>,
+          action: () => <RouterLink to="/welcome/2">下一步</RouterLink>
         }}
       </WelcomeLayout>
     )
-  },
+  }
 })

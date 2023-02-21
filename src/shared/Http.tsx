@@ -1,9 +1,4 @@
-import axios, {
-  AxiosError,
-  AxiosInstance,
-  AxiosRequestConfig,
-  AxiosResponse,
-} from 'axios'
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import {
   mockItemCreate,
   mockItemIndex,
@@ -12,7 +7,7 @@ import {
   mockSession,
   mockTagEdit,
   mockTagIndex,
-  mockTagShow,
+  mockTagShow
 } from '../mock/mock'
 
 type GetConfig = Omit<AxiosRequestConfig, 'params' | 'url' | 'method'>
@@ -23,7 +18,7 @@ export class Http {
   instance: AxiosInstance
   constructor(baseURL: string) {
     this.instance = axios.create({
-      baseURL,
+      baseURL
     })
   }
   // read
@@ -32,7 +27,7 @@ export class Http {
       ...config,
       url: url,
       params: query,
-      method: 'get',
+      method: 'get'
     })
   }
   // create
@@ -44,26 +39,18 @@ export class Http {
     return this.instance.request<R>({ ...config, url, data, method: 'patch' })
   }
   // destroy
-  delete<R = unknown>(
-    url: string,
-    query?: Record<string, string>,
-    config?: DeleteConfig
-  ) {
+  delete<R = unknown>(url: string, query?: Record<string, string>, config?: DeleteConfig) {
     return this.instance.request<R>({
       ...config,
       url: url,
       params: query,
-      method: 'delete',
+      method: 'delete'
     })
   }
 }
 
 const mock = (response: AxiosResponse) => {
-  if (
-    location.hostname !== 'localhost' &&
-    location.hostname !== '127.0.0.1' &&
-    location.hostname !== '192.168.50.20'
-  ) {
+  if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1' && location.hostname !== '192.168.50.20') {
     return false
   }
   switch (response.config?.params?._mock) {

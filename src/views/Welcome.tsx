@@ -1,11 +1,5 @@
 import { defineComponent, ref, Transition, VNode, watchEffect } from 'vue'
-import {
-  RouteLocationNormalizedLoaded,
-  RouterLink,
-  RouterView,
-  useRoute,
-  useRouter,
-} from 'vue-router'
+import { RouteLocationNormalizedLoaded, RouterLink, RouterView, useRoute, useRouter } from 'vue-router'
 import s from './Welcome.module.scss'
 import vhCheck from 'vh-check'
 import { useSwiper } from '../hook/useSwiper'
@@ -16,7 +10,7 @@ const pushMap: Record<string, string> = {
   Welcome1: '/welcome/2',
   Welcome2: '/welcome/3',
   Welcome3: '/welcome/4',
-  Welcome4: '/start',
+  Welcome4: '/start'
 }
 export const Welcome = defineComponent({
   setup() {
@@ -36,10 +30,7 @@ export const Welcome = defineComponent({
     return () => (
       <>
         <div class={s.wrapper}>
-          <div
-            class={s.skiplink}
-            onClick={() => window.localStorage.setItem('skipFeatures', 'yes')}
-          >
+          <div class={s.skiplink} onClick={() => window.localStorage.setItem('skipFeatures', 'yes')}>
             <RouterLink to="/start">跳过</RouterLink>
           </div>
           <header>
@@ -50,13 +41,7 @@ export const Welcome = defineComponent({
           </header>
           <main ref={refMain}>
             <RouterView>
-              {({
-                Component: x,
-                route: R,
-              }: {
-                Component: VNode
-                route: RouteLocationNormalizedLoaded
-              }) => (
+              {({ Component: x, route: R }: { Component: VNode; route: RouteLocationNormalizedLoaded }) => (
                 <Transition
                   enterActiveClass={s.slide_fade_enter_active}
                   leaveActiveClass={s.slide_fade_leave_active}
@@ -71,5 +56,5 @@ export const Welcome = defineComponent({
         </div>
       </>
     )
-  },
+  }
 })

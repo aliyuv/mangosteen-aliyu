@@ -10,20 +10,20 @@ export default defineConfig({
     host: '0.0.0.0',
     proxy: {
       '/api/v1': {
-        target: 'http://121.196.236.94:3000/',
-      },
-    },
+        target: 'http://121.196.236.94:3000/'
+      }
+    }
   },
   plugins: [
     vue(),
     vueJsx({
       transformOn: true,
-      mergeProps: true,
+      mergeProps: true
     }),
     svgstore(),
     styleImport({
-      resolves: [VantResolve()],
+      resolves: [VantResolve()]
     }),
-    devtools,
-  ],
+    devtools
+  ]
 })

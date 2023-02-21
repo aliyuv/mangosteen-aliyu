@@ -4,12 +4,12 @@ export const Money = defineComponent({
   props: {
     value: {
       type: Number as PropType<number>,
-      required: true,
-    },
+      required: true
+    }
   },
   setup(props, context) {
     return () => <span>{addZero(props.value / 100)}</span>
-  },
+  }
 })
 
 const addZero = (num: number) => {

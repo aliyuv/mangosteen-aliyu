@@ -20,9 +20,7 @@ export const routes: RouteRecordRaw[] = [
   {
     path: '/welcome',
     beforeEnter: (to, from, next) => {
-      window.localStorage.getItem('skipFeatures') === 'yes'
-        ? next('/start')
-        : next()
+      window.localStorage.getItem('skipFeatures') === 'yes' ? next('/start') : next()
     },
     component: Welcome,
     children: [
@@ -30,8 +28,8 @@ export const routes: RouteRecordRaw[] = [
       { path: '1', name: 'Welcome1', component: First },
       { path: '2', name: 'Welcome2', component: Second },
       { path: '3', name: 'Welcome3', component: Third },
-      { path: '4', name: 'Welcome4', component: Four },
-    ],
+      { path: '4', name: 'Welcome4', component: Four }
+    ]
   },
   { path: '/start', component: StartPage },
   {
@@ -39,23 +37,23 @@ export const routes: RouteRecordRaw[] = [
     component: ItemPage,
     children: [
       { path: '', component: ItemList },
-      { path: 'create', component: ItemCreate },
-    ],
+      { path: 'create', component: ItemCreate }
+    ]
   },
   {
     path: '/tags',
     component: TagPage,
     children: [
       { path: 'create', component: CreateTag },
-      { path: ':id/edit', component: EditTag },
-    ],
+      { path: ':id/edit', component: EditTag }
+    ]
   },
   {
     path: '/sign_in',
-    component: SignInPage,
+    component: SignInPage
   },
   {
     path: '/statistics',
-    component: StatisticsPage,
-  },
+    component: StatisticsPage
+  }
 ]

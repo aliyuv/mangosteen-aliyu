@@ -18,9 +18,9 @@ export const Second = defineComponent({
               不会遗漏每一笔账单
             </h2>
           ),
-          action: () => <RouterLink to="/welcome/3">下一步</RouterLink>,
+          action: () => <RouterLink to="/welcome/3">下一步</RouterLink>
         }}
       </WelcomeLayout>
     )
-  },
+  }
 })

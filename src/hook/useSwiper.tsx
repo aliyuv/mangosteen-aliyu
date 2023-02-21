@@ -13,10 +13,7 @@ interface Options {
   beforeonTouchEnd?: (e: TouchEvent) => void
   afteronTouchEnd?: (e: TouchEvent) => void
 }
-export const useSwiper = (
-  element: Ref<HTMLElement | null>,
-  options?: Options
-) => {
+export const useSwiper = (element: Ref<HTMLElement | null>, options?: Options) => {
   const start = ref<Point | null>(null)
   const end = ref<Point | null>(null)
   const swiping = ref(false)
@@ -26,7 +23,7 @@ export const useSwiper = (
     }
     return {
       x: end.value.x - start.value.x,
-      y: end.value.y - start.value.y,
+      y: end.value.y - start.value.y
     }
   })
   const direction = computed(() => {
@@ -46,7 +43,7 @@ export const useSwiper = (
     options?.beforeonTouchStart?.(e)
     end.value = start.value = {
       x: e.touches[0].clientX,
-      y: e.touches[0].clientY,
+      y: e.touches[0].clientY
     }
     swiping.value = true
     options?.afteronTouchStart?.(e)

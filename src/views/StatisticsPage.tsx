@@ -5,5 +5,5 @@ import s from './StatisticsPage.module.scss'
 export const StatisticsPage = defineComponent({
   setup(props, context) {
     return () => <TimeTabsLayOut component={Charts} rerenderOnSwitchTab={true} />
-  },
+  }
 })

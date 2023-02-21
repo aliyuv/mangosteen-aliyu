@@ -8,5 +8,5 @@ export const NavBar = defineComponent({
         <span class={s.title_wrapper}>{context.slots.title?.()}</span>
       </div>
     )
-  },
+  }
 })

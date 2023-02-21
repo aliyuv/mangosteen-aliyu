@@ -18,9 +18,9 @@ export const Third = defineComponent({
               收支一目了然
             </h2>
           ),
-          action: () => <RouterLink to="/welcome/4">下一步</RouterLink>,
+          action: () => <RouterLink to="/welcome/4">下一步</RouterLink>
         }}
       </WelcomeLayout>
     )
-  },
+  }
 })

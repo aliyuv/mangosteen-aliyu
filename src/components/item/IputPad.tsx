@@ -7,14 +7,14 @@ import { Time } from '../../shared/time'
 export const InputPad = defineComponent({
   props: {
     happenAt: {
-      type: String,
+      type: String
     },
     amount: {
-      type: Number,
+      type: Number
     },
     onSubmit: {
-      type: Function as PropType<() => void>,
-    },
+      type: Function as PropType<() => void>
+    }
   },
   emits: ['update:happenAt', 'update:amount'],
   setup(props, context) {
@@ -23,81 +23,81 @@ export const InputPad = defineComponent({
         text: '1',
         onClick: () => {
           appenToAmount(1)
-        },
+        }
       },
       {
         text: '2',
         onClick: () => {
           appenToAmount(2)
-        },
+        }
       },
       {
         text: '3',
         onClick: () => {
           appenToAmount(3)
-        },
+        }
       },
       {
         text: '4',
         onClick: () => {
           appenToAmount(4)
-        },
+        }
       },
       {
         text: '5',
         onClick: () => {
           appenToAmount(5)
-        },
+        }
       },
       {
         text: '6',
         onClick: () => {
           appenToAmount(6)
-        },
+        }
       },
       {
         text: '7',
         onClick: () => {
           appenToAmount(7)
-        },
+        }
       },
       {
         text: '8',
         onClick: () => {
           appenToAmount(8)
-        },
+        }
       },
       {
         text: '9',
         onClick: () => {
           appenToAmount(9)
-        },
+        }
       },
       {
         text: '.',
         onClick: () => {
           appenToAmount('.')
-        },
+        }
       },
       {
         text: '0',
         onClick: () => {
           appenToAmount(0)
-        },
+        }
       },
       {
         text: '清空',
         onClick: () => {
           refAmount.value = '0'
-        },
+        }
       },
       {
         text: '提交',
         onClick: () => {
           context.emit('update:amount', parseFloat(refAmount.value) * 100) //以分为单位
           props.onSubmit?.()
-        },
-      },
+        }
+      }
     ]
     const refAmount = ref('0')
     const appenToAmount = (num: string | number) => {
@@ -136,9 +136,7 @@ export const InputPad = defineComponent({
         <div class={s.dateAndAmount}>
           <span class={s.date}>
             <Icon name="date" class={s.icon} />
-            <span onClick={showDatePicker}>
-              {new Time(props.happenAt).format()}
-            </span>
+            <span onClick={showDatePicker}>{new Time(props.happenAt).format()}</span>
             <Popup position="bottom" v-model:show={refDatePickerVisible.value}>
               <DatetimePicker
                 value={props.happenAt}
@@ -159,5 +157,5 @@ export const InputPad = defineComponent({
         </div>
       </>
     )
-  },
+  }
 })

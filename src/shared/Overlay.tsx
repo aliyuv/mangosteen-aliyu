@@ -7,8 +7,8 @@ import s from './Overlay.module.scss'
 export const Overlay = defineComponent({
   props: {
     onClose: {
-      type: Function as PropType<() => void>,
-    },
+      type: Function as PropType<() => void>
+    }
   },
   setup(props, context) {
     const close = () => {
@@ -24,7 +24,7 @@ export const Overlay = defineComponent({
     const onSignOut = async () => {
       await Dialog.confirm({
         title: '确认退出登录吗？',
-        message: '退出登录后将无法同步数据',
+        message: '退出登录后将无法同步数据'
       })
       localStorage.removeItem('jwt')
       window.location.reload()
@@ -71,7 +71,7 @@ export const Overlay = defineComponent({
         </div>
       </>
     )
-  },
+  }
 })
 
 export const OverlayIcon = defineComponent({
@@ -92,5 +92,5 @@ export const OverlayIcon = defineComponent({
         )}
       </>
     )
-  },
+  }
 })

@@ -8,5 +8,5 @@ export const TagPage = defineComponent({
         <RouterView />
       </div>
     )
-  },
+  }
 })

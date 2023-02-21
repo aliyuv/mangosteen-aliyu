@@ -4,23 +4,23 @@ export const Button = defineComponent({
   props: {
     level: {
       type: String as PropType<'important' | 'normal' | 'danger'>,
-      default: 'important',
+      default: 'important'
     },
     onClick: {
-      type: Function as PropType<(e: MouseEvent) => void>,
+      type: Function as PropType<(e: MouseEvent) => void>
     },
     type: {
       type: String as PropType<'button' | 'submit'>,
-      default: 'button',
+      default: 'button'
     },
     disabled: {
       type: Boolean as PropType<boolean>,
-      default: false,
+      default: false
     },
     autoSelfDisabled: {
       type: Boolean as PropType<boolean>,
-      default: false,
-    },
+      default: false
+    }
   },
   setup(props, context) {
     const selfDisabled = ref(false)
@@ -42,14 +42,9 @@ export const Button = defineComponent({
       }, 1000)
     }
     return () => (
-      <button
-        class={[s.button, s[props.level]]}
-        type={props.type}
-        onClick={props.onClick}
-        disabled={_disabled.value}
-      >
+      <button class={[s.button, s[props.level]]} type={props.type} onClick={props.onClick} disabled={_disabled.value}>
         {context.slots.default?.()}
       </button>
     )
-  },
+  }
 })

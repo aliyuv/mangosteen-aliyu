@@ -8,11 +8,11 @@ export const MainLayout = defineComponent({
         <NavBar class={s.navbar}>
           {{
             icon: () => context.slots.icon?.(),
-            title: () => context.slots.title?.(),
+            title: () => context.slots.title?.()
           }}
         </NavBar>
         {context.slots.default?.()}
       </div>
     )
-  },
+  }
 })

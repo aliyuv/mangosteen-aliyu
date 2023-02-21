@@ -9,9 +9,9 @@ export const CreateTag = defineComponent({
         {{
           title: () => '新建标签',
           icon: () => <BackIcon />,
-          default: () => <TagForm isinTabBtnvs={true} />,
+          default: () => <TagForm isinTabBtnvs={true} />
         }}
       </MainLayout>
     )
-  },
+  }
 })

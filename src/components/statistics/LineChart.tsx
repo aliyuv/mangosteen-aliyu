@@ -11,18 +11,18 @@ const echartsOption = {
     formatter: ([item]: any) => {
       const [x, y] = item.data
       return `${new Time(new Date(x)).format('YYYY年MM月DD日')} ￥${getMoney(y)}`
-    },
+    }
   },
   grid: [{ left: 16, top: 20, right: 16, bottom: 20 }],
   xAxis: {
     type: 'time',
     boundaryGap: ['3%', '0%'],
     axisLabel: {
-      formatter: (value: string) => new Time(new Date(value)).format('MM-DD'),
+      formatter: (value: string) => new Time(new Date(value)).format('MM-DD')
     },
     axisTick: {
-      alignWithLabel: true,
-    },
+      alignWithLabel: true
+    }
   },
   yAxis: {
     show: true,
@@ -30,19 +30,19 @@ const echartsOption = {
     splitLine: {
       show: true,
       lineStyle: {
-        type: 'dashed',
-      },
+        type: 'dashed'
+      }
     },
     axisLabel: {
-      show: false,
-    },
-  },
+      show: false
+    }
+  }
 }
 export const LineChart = defineComponent({
   props: {
     data: {
       type: Array as PropType<[string, number][]>,
-      required: true,
+      required: true
     }
   },
   setup: (props, context) => {
@@ -57,19 +57,26 @@ export const LineChart = defineComponent({
       // 绘制图表
       chart.setOption({
         ...echartsOption,
-        series: [{
-          data: props.data,
-          type: 'line'
-        }]
+        series: [
+          {
+            data: props.data,
+            type: 'line'
+          }
+        ]
       })
     })
-    watch(() => props.data, () => {
-      chart?.setOption({
-        series: [{
-          data: props.data,
-        }]
-      })
-    })
+    watch(
+      () => props.data,
+      () => {
+        chart?.setOption({
+          series: [
+            {
+              data: props.data
+            }
+          ]
+        })
+      }
+    )
     return () => <div ref={refDiv} class={s.wrapper}></div>
-  },
+  }
 })

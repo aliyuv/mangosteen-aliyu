@@ -17,11 +17,11 @@ export const Icon = defineComponent({
   props: {
     name: {
       type: String as PropType<IconType>,
-      required: true,
+      required: true
     },
     onClick: {
-      type: Function as PropType<(e: MouseEvent) => void>,
-    },
+      type: Function as PropType<(e: MouseEvent) => void>
+    }
   },
   setup(props, context) {
     return () => (
@@ -30,5 +30,5 @@ export const Icon = defineComponent({
         <use xlinkHref={`#${props.name}`}></use>
       </svg>
     )
-  },
+  }
 })

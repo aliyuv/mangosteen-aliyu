@@ -1,5 +1,5 @@
 const map: Record<string, string> = {
-  'is invalid': '格式不正确',
+  'is invalid': '格式不正确'
 }
 export const getFrendlyError = (error: string) => {
   return map[error] || error

@@ -18,17 +18,17 @@ export const EditTag = defineComponent({
     const onError = () => {
       Dialog.alert({
         title: '错误',
-        message: '删除失败',
+        message: '删除失败'
       })
     }
     const onDeleted = async (options?: { withItems?: boolean }) => {
       await Dialog.confirm({
         title: '确认删除',
-        message: '删除后不可恢复，是否继续？',
+        message: '删除后不可恢复，是否继续？'
       })
       await http
         .delete(`/tags/${numberId}`, {
-          withItems: options?.withItems ? 'true' : 'false',
+          withItems: options?.withItems ? 'true' : 'false'
         })
         .catch(onError)
       router.back()
@@ -42,25 +42,17 @@ export const EditTag = defineComponent({
             <>
               <TagForm isinTabBtnvs={false} id={numberId} />
               <div class={s.actions}>
-                <Button
-                  level="danger"
-                  class={s.removeTags}
-                  onClick={() => onDeleted()}
-                >
+                <Button level="danger" class={s.removeTags} onClick={() => onDeleted()}>
                   删除标签
                 </Button>
-                <Button
-                  level="danger"
-                  class={s.removeTagsAndItems}
-                  onClick={() => onDeleted({ withItems: true })}
-                >
+                <Button level="danger" class={s.removeTagsAndItems} onClick={() => onDeleted({ withItems: true })}>
                   删除标签和记账
                 </Button>
               </div>
             </>
-          ),
+          )
         }}
       </MainLayout>
     )
-  },
+  }
 })

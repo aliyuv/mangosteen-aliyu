@@ -9,11 +9,11 @@ import { onFormError } from '../../shared/onFormError'
 export const TagForm = defineComponent({
   props: {
     isinTabBtnvs: {
-      type: Boolean as PropType<boolean>,
+      type: Boolean as PropType<boolean>
     },
     id: {
-      type: Number as PropType<number>,
-    },
+      type: Number as PropType<number>
+    }
   },
   setup(props, context) {
     const route = useRoute()
@@ -21,7 +21,7 @@ export const TagForm = defineComponent({
       id: undefined,
       name: '',
       sign: '',
-      kind: route.query.kind?.toString(),
+      kind: route.query.kind?.toString()
     })
     const errors = reactive<{ [k in keyof typeof formData]?: string[] }>({})
     const router = useRouter()
@@ -33,48 +33,41 @@ export const TagForm = defineComponent({
           key: 'name',
           type: 'pattern',
           regex: /^.{1,4}$/,
-          message: '只能填 1 到 4 个字符',
+          message: '只能填 1 到 4 个字符'
         },
-        { key: 'sign', type: 'required', message: '必填' },
+        { key: 'sign', type: 'required', message: '必填' }
       ]
       Object.assign(errors, {
         name: [],
-        sign: [],
+        sign: []
       })
       Object.assign(errors, validate(formData, rules))
       if (!hasError(errors)) {
         const promise = (await formData.id)
           ? http.patch(`/tags/${formData.id}`, formData, {
               params: {
-                _mock: 'tagEdit',
-              },
+                _mock: 'tagEdit'
+              }
             })
           : http.post('/tags', formData, {
               params: {
-                _mock: 'tagCreate',
-              },
+                _mock: 'tagCreate'
+              }
             })
-        await promise.catch((error) =>
-          onFormError(error, (data) => Object.assign(errors, data))
-        )
+        await promise.catch((error) => onFormError(error, (data) => Object.assign(errors, data)))
         router.back()
       }
     }
     onMounted(async () => {
       if (!props.id) return
       const response = await http.get<Rescource<Tag>>(`/tags/${props.id}`, {
-        _mock: 'tagShow',
+        _mock: 'tagShow'
       })
       Object.assign(formData, response.data.resource)
     })
     return () => (
       <Form onSubmit={onSubmit}>
-        <FormItem
-          label="标签名 (最多 4 个字符)"
-          type="text"
-          v-model={formData.name}
-          error={errors['name']?.[0]}
-        />
+        <FormItem label="标签名 (最多 4 个字符)" type="text" v-model={formData.name} error={errors['name']?.[0]} />
         <FormItem
           label={`符号${formData.sign}`}
           type="emojiSelect"
@@ -91,5 +84,5 @@ export const TagForm = defineComponent({
         </FormItem>
       </Form>
     )
-  },
+  }
 })

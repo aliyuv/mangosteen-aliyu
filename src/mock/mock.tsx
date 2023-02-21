@@ -4,15 +4,18 @@ type Mock = (config: AxiosRequestConfig) => [number, any]
 
 faker.setLocale('zh_CN')
 
-export const mockItemSummary: Mock = config => {
-  return [200, {
-    "groups": [
-      { "happen_at": "2018-06-18T00:00:00.000+0800", "amount": 100 },
-      { "happen_at": "2018-06-22T00:00:00.000+0800", "amount": 300 },
-      { "happen_at": "2018-06-29T00:00:00.000+0800", "amount": 200 }
-    ],
-    "summary": 600
-  }]
+export const mockItemSummary: Mock = (config) => {
+  return [
+    200,
+    {
+      groups: [
+        { happen_at: '2018-06-18T00:00:00.000+0800', amount: 100 },
+        { happen_at: '2018-06-22T00:00:00.000+0800', amount: 300 },
+        { happen_at: '2018-06-29T00:00:00.000+0800', amount: 200 }
+      ],
+      summary: 600
+    }
+  ]
 }
 export const mockItemIndexBalance: Mock = (responseConfig) => {
   return [
@@ -20,8 +23,8 @@ export const mockItemIndexBalance: Mock = (responseConfig) => {
     {
       expenses: faker.datatype.number({ min: 100, max: 10000 }),
       income: faker.datatype.number({ min: 100, max: 10000 }),
-      balance: faker.datatype.number({ min: 100, max: 10000 }),
-    },
+      balance: faker.datatype.number({ min: 100, max: 10000 })
+    }
   ]
 }
 export const mockItemIndex: Mock = (responseConfig) => {
@@ -35,7 +38,7 @@ export const mockItemIndex: Mock = (responseConfig) => {
     name: faker.lorem.word(),
     sign: faker.internet.emoji(),
     kind: 'expenses',
-    ...attrs,
+    ...attrs
   })
   const createItem = (n = 1, attrs?: any) =>
     Array.from({ length: n }).map(() => ({
@@ -45,7 +48,7 @@ export const mockItemIndex: Mock = (responseConfig) => {
       tags_id: [createId()],
       tags: [createTag()],
       happened_at: faker.date.past().toISOString(),
-      kind: responseConfig.params.kind,
+      kind: responseConfig.params.kind
     }))
   const createBody = (n = 1, attrs?: any) => ({
     resources: createItem(n),
@@ -53,8 +56,8 @@ export const mockItemIndex: Mock = (responseConfig) => {
     summary: {
       income: faker.datatype.number({ min: 100, max: 10000 }),
       expenses: faker.datatype.number({ min: 100, max: 10000 }),
-      balance: faker.datatype.number({ min: 100, max: 10000 }),
-    },
+      balance: faker.datatype.number({ min: 100, max: 10000 })
+    }
   })
   if (!page || page === 1) {
     return [200, createBody(25)]
@@ -70,7 +73,7 @@ export const mockTagEdit: Mock = (responseConfig) => {
     name: faker.lorem.word(),
     sign: faker.internet.emoji(),
     kind: 'expenses',
-    ...attrs,
+    ...attrs
   })
   return [200, { resource: createTag() }]
 }
@@ -81,7 +84,7 @@ export const mockTagShow: Mock = (responseConfig) => {
     name: faker.lorem.word(),
     sign: faker.internet.emoji(),
     kind: 'expenses',
-    ...attrs,
+    ...attrs
   })
   return [200, { resource: createTag() }]
 }
@@ -98,9 +101,9 @@ export const mockItemCreate: Mock = (responseConfig) => {
         happen_at: '2020-10-29T16:00:00.000Z',
         created_at: '2022-07-03T15:35:56.301Z',
         updated_at: '2022-07-03T15:35:56.301Z',
-        kind: 'expenses',
-      },
-    },
+        kind: 'expenses'
+      }
+    }
   ]
 }
 export const mockSession: Mock = (responseConfig) => {
@@ -109,8 +112,8 @@ export const mockSession: Mock = (responseConfig) => {
     return [
       200,
       {
-        jwt: faker.datatype.uuid(),
-      },
+        jwt: faker.datatype.uuid()
+      }
     ]
   } else {
     return [401, {}]
@@ -132,11 +135,11 @@ export const mockTagIndex: Mock = (responseConfig) => {
       name: faker.lorem.word(),
       sign: faker.internet.emoji(),
       kind: responseConfig.params.kind,
-      ...attrs,
+      ...attrs
     }))
   const createBody = (n = 1, attrs?: any) => ({
     resources: createTag(n),
-    pager: createPager(page),
+    pager: createPager(page)
   })
   if (kind === 'expenses' && (!page || page === 1)) {
     //如果是支出且是第一页 !page 如果不存在page 也就是第一页

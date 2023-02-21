@@ -13,7 +13,7 @@ const whiteList: Record<string, 'exact' | 'startWith'> = {
   '/': 'exact',
   '/start': 'exact',
   '/welcome': 'startWith',
-  '/sign_in': 'startWith',
+  '/sign_in': 'startWith'
 }
 router.beforeEach(async (to, from) => {
   for (const key in whiteList) {
