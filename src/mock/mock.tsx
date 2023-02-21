@@ -1,23 +1,22 @@
-import { AxiosRequestConfig } from 'axios'
 import { faker } from '@faker-js/faker'
+import { AxiosRequestConfig } from 'axios'
+
 type Mock = (config: AxiosRequestConfig) => [number, any]
 
 faker.setLocale('zh_CN')
 
-export const mockItemSummary: Mock = (responseConfig) => {
-  const { group_by, kind } = responseConfig.params
-  if (group_by === 'happen_at' && kind === 'expense') {
+export const mockItemSummary: Mock = (config) => {
+  const { group_by, kind } = config.params
+  if (group_by === 'happen_at' && kind === 'expenses') {
     return [
       200,
       {
         groups: [
-          { happen_at: '2023-02-02T00:00:00.000+0800', amount: 100 },
-          { happen_at: '2023-02-05T00:00:00.000+0800', amount: 300 },
-          { happen_at: '2023-02-10T00:00:00.000+0800', amount: 600 },
-          { happen_at: '2023-02-15T00:00:00.000+0800', amount: 800 },
-          { happen_at: '2023-02-20T00:00:00.000+0800', amount: 1000 },
+          { happen_at: '2023-02-10T00:00:00.000+0800', amount: 100 },
+          { happen_at: '2023-02-15T00:00:00.000+0800', amount: 300 },
+          { happen_at: '2023-02-21T00:00:00.000+0800', amount: 200 }
         ],
-        summary: 3000
+        summary: 600
       }
     ]
   } else if (group_by === 'happen_at' && kind === 'income') {
@@ -25,25 +24,23 @@ export const mockItemSummary: Mock = (responseConfig) => {
       200,
       {
         groups: [
-          { happen_at: '2023-02-02T00:00:00.000+0800', amount: 100 },
-          { happen_at: '2023-02-05T00:00:00.000+0800', amount: 300 },
-          { happen_at: '2023-02-10T00:00:00.000+0800', amount: 600 },
-          { happen_at: '2023-02-15T00:00:00.000+0800', amount: 800 },
-          { happen_at: '2023-02-20T00:00:00.000+0800', amount: 1000 },
+          { happen_at: '2023-02-10T00:00:00.000+0800', amount: 100 },
+          { happen_at: '2023-02-15T00:00:00.000+0800', amount: 300 },
+          { happen_at: '2023-02-21T00:00:00.000+0800', amount: 200 }
         ],
-        summary: 3000
+        summary: 600
       }
     ]
-  } else if (group_by === 'tag_id' && kind === 'expense') {
+  } else if (group_by === 'tag_id' && kind === 'expenses') {
     return [
       200,
       {
         groups: [
           { tag_id: 1, tag: { id: 1, name: '交通', sign: faker.internet.emoji() }, amount: 100 },
           { tag_id: 2, tag: { id: 2, name: '吃饭', sign: faker.internet.emoji() }, amount: 300 },
-          { tag_id: 3, tag: { id: 3, name: '购物', sign: faker.internet.emoji() }, amount: 600 }
+          { tag_id: 3, tag: { id: 3, name: '购物', sign: faker.internet.emoji() }, amount: 200 }
         ],
-        summary: 1000
+        summary: 600
       }
     ]
   } else {
@@ -51,31 +48,34 @@ export const mockItemSummary: Mock = (responseConfig) => {
       200,
       {
         groups: [
-          { tag_id: 1, tag: { id: 1, name: '交通', sign: faker.internet.emoji() }, amount: 100 },
+          { tag_id: 1, tag: { id: 1, name: '交通', sign: faker.internet.emoji() }, amount: 400 },
           { tag_id: 2, tag: { id: 2, name: '吃饭', sign: faker.internet.emoji() }, amount: 300 },
-          { tag_id: 3, tag: { id: 3, name: '购物', sign: faker.internet.emoji() }, amount: 600 }
+          { tag_id: 3, tag: { id: 3, name: '购物', sign: faker.internet.emoji() }, amount: 200 }
         ],
-        summary: 1000
+        summary: 900
       }
     ]
   }
 }
-export const mockItemIndexBalance: Mock = (responseConfig) => {
+export const mockItemIndexBalance: Mock = (config) => {
   return [
     200,
     {
-      expenses: faker.datatype.number({ min: 100, max: 10000 }),
-      income: faker.datatype.number({ min: 100, max: 10000 }),
-      balance: faker.datatype.number({ min: 100, max: 10000 })
+      expenses: 9900,
+      income: 9900,
+      balance: 0
     }
   ]
 }
-export const mockItemIndex: Mock = (responseConfig) => {
-  const { kind, page } = responseConfig.params
-  const per_page = 25 // 当前页显示的数量
-  const count = 26 // 总数
-  //创建分页器 传入当前页 返回一个对象 包含当前页 每页显示的数量 总数  例如：{page: 1, per_page: 25, count: 26}
-  const createPager = (page = 1) => ({ page, per_page, count })
+export const mockItemIndex: Mock = (config) => {
+  const { kind, page } = config.params
+  const per_page = 25
+  const count = 26
+  const createPaper = (page = 1) => ({
+    page,
+    per_page,
+    count
+  })
   const createTag = (attrs?: any) => ({
     id: createId(),
     name: faker.lorem.word(),
@@ -87,19 +87,19 @@ export const mockItemIndex: Mock = (responseConfig) => {
     Array.from({ length: n }).map(() => ({
       id: createId(),
       user_id: createId(),
-      amount: faker.datatype.number({ min: 100, max: 10000 }),
+      amount: Math.floor(Math.random() * 10000),
       tags_id: [createId()],
       tags: [createTag()],
-      happened_at: faker.date.past().toISOString(),
-      kind: responseConfig.params.kind
+      happen_at: faker.date.past().toISOString(),
+      kind: config.params.kind
     }))
   const createBody = (n = 1, attrs?: any) => ({
     resources: createItem(n),
-    pager: createPager(page),
+    pager: createPaper(page),
     summary: {
-      income: faker.datatype.number({ min: 100, max: 10000 }),
-      expenses: faker.datatype.number({ min: 100, max: 10000 }),
-      balance: faker.datatype.number({ min: 100, max: 10000 })
+      income: 9900,
+      expenses: 9900,
+      balance: 0
     }
   })
   if (!page || page === 1) {
@@ -107,10 +107,10 @@ export const mockItemIndex: Mock = (responseConfig) => {
   } else if (page === 2) {
     return [200, createBody(1)]
   } else {
-    return [200, createBody(0)]
+    return [200, {}]
   }
 }
-export const mockTagEdit: Mock = (responseConfig) => {
+export const mockTagEdit: Mock = (config) => {
   const createTag = (attrs?: any) => ({
     id: createId(),
     name: faker.lorem.word(),
@@ -121,7 +121,7 @@ export const mockTagEdit: Mock = (responseConfig) => {
   return [200, { resource: createTag() }]
 }
 
-export const mockTagShow: Mock = (responseConfig) => {
+export const mockTagShow: Mock = (config) => {
   const createTag = (attrs?: any) => ({
     id: createId(),
     name: faker.lorem.word(),
@@ -131,7 +131,8 @@ export const mockTagShow: Mock = (responseConfig) => {
   })
   return [200, { resource: createTag() }]
 }
-export const mockItemCreate: Mock = (responseConfig) => {
+
+export const mockItemCreate: Mock = (config) => {
   return [
     200,
     {
@@ -149,46 +150,45 @@ export const mockItemCreate: Mock = (responseConfig) => {
     }
   ]
 }
-export const mockSession: Mock = (responseConfig) => {
-  if (responseConfig.params._mock === 'signIn') {
-    console.log('mock signIn')
-    return [
-      200,
-      {
-        jwt: faker.datatype.uuid()
-      }
-    ]
-  } else {
-    return [401, {}]
-  }
+export const mockSession: Mock = (config) => {
+  return [
+    200,
+    {
+      jwt: faker.random.word()
+    }
+  ]
 }
+
 let id = 0
 const createId = () => {
   id += 1
   return id
 }
-export const mockTagIndex: Mock = (responseConfig) => {
-  const { kind, page } = responseConfig.params
-  const per_page = 25 // 当前页显示的数量
-  const count = 26 // 总数
-  const createPager = (page = 1) => ({ page, per_page, count })
+export const mockTagIndex: Mock = (config) => {
+  const { kind, page } = config.params
+  const per_page = 25
+  const count = 26
+  const createPaper = (page = 1) => ({
+    page,
+    per_page,
+    count
+  })
   const createTag = (n = 1, attrs?: any) =>
     Array.from({ length: n }).map(() => ({
       id: createId(),
       name: faker.lorem.word(),
       sign: faker.internet.emoji(),
-      kind: responseConfig.params.kind,
+      kind: config.params.kind,
       ...attrs
     }))
   const createBody = (n = 1, attrs?: any) => ({
     resources: createTag(n),
-    pager: createPager(page)
+    pager: createPaper(page)
   })
+
   if (kind === 'expenses' && (!page || page === 1)) {
-    //如果是支出且是第一页 !page 如果不存在page 也就是第一页
     return [200, createBody(25)]
   } else if (kind === 'expenses' && page === 2) {
-    //如果是支出且是第二页
     return [200, createBody(1)]
   } else if (kind === 'income' && (!page || page === 1)) {
     return [200, createBody(25)]

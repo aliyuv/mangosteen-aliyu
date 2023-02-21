@@ -53,6 +53,7 @@ export const Charts = defineComponent({
       })
       data1.value = response.data.groups
     }
+
     onMounted(fetchData1)
     watch(() => kind.value, fetchData1)
 
