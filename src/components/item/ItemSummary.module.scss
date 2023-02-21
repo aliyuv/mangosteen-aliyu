@@ -1,5 +1,4 @@
-.wrapper {
-}
+.wrapper {}
 
 .total {
   background: var(--total-bg);
@@ -10,7 +9,7 @@
   border-radius: var(--button-radius);
   padding: 0 16px;
 
-  > li {
+  >li {
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -27,9 +26,8 @@
 }
 
 .list {
-  > li {
+  >li {
     display: flex;
-
     justify-content: space-between;
     align-items: flex-start;
     border-bottom: 1px solid var(--button-border-color);
@@ -70,6 +68,7 @@
 
     .time {
       color: var(--list-time-text);
+      font-size: 14px;
       margin-top: 4px;
     }
   }

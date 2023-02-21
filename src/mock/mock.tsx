@@ -4,6 +4,35 @@ type Mock = (config: AxiosRequestConfig) => [number, any]
 
 faker.setLocale('zh_CN')
 
+
+export const mockItemIndex: Mock = (responseConfig) => {
+  const { kind, page } = responseConfig.params
+  const per_page = 25 // 当前页显示的数量
+  const count = 26 // 总数
+  //创建分页器 传入当前页 返回一个对象 包含当前页 每页显示的数量 总数  例如：{page: 1, per_page: 25, count: 26}
+  const createPager = (page = 1) => ({ page, per_page, count })
+  const createItem = (n = 1, attrs?: any) =>
+    Array.from({ length: n }).map(() => ({
+      id: createId(),
+      user_id: createId(),
+      amount: faker.datatype.number({ min: 100, max: 10000 }),
+      tags_id: [createId()],
+      happened_at: faker.date.past().toISOString(),
+      kind: responseConfig.params.kind,
+    }))
+  const createBody = (n = 1, attrs?: any) => ({
+    resources: createItem(n),
+    pager: createPager(page),
+  })
+  if (!page || page === 1) {
+    return [200, createBody(25)]
+  } else if (page === 2) {
+    return [200, createBody(1)]
+  } else {
+    return [200, createBody(0)]
+  }
+
+}
 export const mockTagEdit: Mock = (responseConfig) => {
   const createTag = (attrs?: any) => ({
     id: createId(),
