@@ -20,12 +20,20 @@ export const mockItemIndex: Mock = (responseConfig) => {
   const count = 26 // 总数
   //创建分页器 传入当前页 返回一个对象 包含当前页 每页显示的数量 总数  例如：{page: 1, per_page: 25, count: 26}
   const createPager = (page = 1) => ({ page, per_page, count })
+  const createTag = (attrs?: any) => ({
+    id: createId(),
+    name: faker.lorem.word(),
+    sign: faker.internet.emoji(),
+    kind: 'expenses',
+    ...attrs,
+  })
   const createItem = (n = 1, attrs?: any) =>
     Array.from({ length: n }).map(() => ({
       id: createId(),
       user_id: createId(),
       amount: faker.datatype.number({ min: 100, max: 10000 }),
       tags_id: [createId()],
+      tags: [createTag()],
       happened_at: faker.date.past().toISOString(),
       kind: responseConfig.params.kind,
     }))
