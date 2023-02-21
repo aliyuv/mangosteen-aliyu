@@ -10,7 +10,7 @@ import { Time } from '../../shared/time'
 const DAY = 24 * 3600 * 1000
 type Data1Item = { happen_at: string; amount: number }
 type Data1 = Data1Item[]
-type Data2Item = { tag_id: number; tag: Tag, amount: number }
+type Data2Item = { tag_id: number; tag: Tag; amount: number }
 type Data2 = Data2Item[]
 export const Charts = defineComponent({
   props: {
@@ -51,12 +51,13 @@ export const Charts = defineComponent({
       data1.value = response.data.groups
     })
 
-
     const data2 = ref<Data2>([])
-    const betterData2 = computed<{ name: string; value: number }[]>(() => data2.value.map(item => ({
-      name: item.tag.name,
-      value: item.amount
-    })))
+    const betterData2 = computed<{ name: string; value: number }[]>(() =>
+      data2.value.map((item) => ({
+        name: item.tag.name,
+        value: item.amount
+      }))
+    )
     onMounted(async () => {
       const response = await http.get<{ groups: Data2; summary: number }>('/items/summary', {
         happen_after: props.startDate,

@@ -4,7 +4,7 @@ import * as echarts from 'echarts'
 const defaultOption = {
   tooltip: {
     trigger: 'item',
-    formatter: (x: { name: string, value: number, percent: number }) => {
+    formatter: (x: { name: string; value: number; percent: number }) => {
       const { name, value, percent } = x
       return `${name}: ¥${value} 占比(${percent}%)`
     }
@@ -27,7 +27,7 @@ const defaultOption = {
 export const PieChart = defineComponent({
   props: {
     data: {
-      type: Array as PropType<{ name: string; value: number }[]>,
+      type: Array as PropType<{ name: string; value: number }[]>
     }
   },
   setup: (props, context) => {
@@ -42,13 +42,18 @@ export const PieChart = defineComponent({
       // 绘制图表
       chart.setOption(defaultOption)
     })
-    watch(() => props.data, () => {
-      chart?.setOption({
-        series: [{
-          data: props.data
-        }]
-      })
-    })
+    watch(
+      () => props.data,
+      () => {
+        chart?.setOption({
+          series: [
+            {
+              data: props.data
+            }
+          ]
+        })
+      }
+    )
     return () => <div ref={refDiv2} class={s.wrapper}></div>
   }
 })
