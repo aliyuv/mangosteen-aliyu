@@ -30,6 +30,12 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+
+      span {
+        >span:nth-child(1) {
+          margin-right: 6px;
+        }
+      }
     }
 
     .bar {
@@ -46,7 +52,7 @@
       top: 0;
       left: 0;
       height: 100%;
-      width: 42px;
+      width: 0;
     }
   }
 

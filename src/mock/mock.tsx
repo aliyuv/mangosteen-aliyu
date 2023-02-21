@@ -5,6 +5,7 @@ type Mock = (config: AxiosRequestConfig) => [number, any]
 faker.setLocale('zh_CN')
 
 export const mockItemSummary: Mock = (responseConfig) => {
+  console.log(responseConfig.params.group_by)
   if (responseConfig.params.group_by === 'happen_at') {
     return [
       200,
@@ -22,9 +23,9 @@ export const mockItemSummary: Mock = (responseConfig) => {
       200,
       {
         groups: [
-          { tag_id: 1, tag: { id: 1, name: '交通' }, amount: 100 },
-          { tag_id: 2, tag: { id: 2, name: '吃饭' }, amount: 300 },
-          { tag_id: 3, tag: { id: 3, name: '购物' }, amount: 600 }
+          { tag_id: 1, tag: { id: 1, name: '交通', sign: faker.internet.emoji() }, amount: 100 },
+          { tag_id: 2, tag: { id: 2, name: '吃饭', sign: faker.internet.emoji() }, amount: 300 },
+          { tag_id: 3, tag: { id: 3, name: '购物', sign: faker.internet.emoji() }, amount: 600 }
         ],
         summary: 1000
       }
