@@ -5,7 +5,7 @@ type Mock = (config: AxiosRequestConfig) => [number, any]
 faker.setLocale('zh_CN')
 
 export const mockItemSummary: Mock = (responseConfig) => {
-  if (responseConfig.params.group_by === 'happend_at') {
+  if (responseConfig.params.group_by === 'happen_at') {
     return [
       200,
       {
