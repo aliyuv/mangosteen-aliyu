@@ -4,7 +4,6 @@ type Mock = (config: AxiosRequestConfig) => [number, any]
 
 faker.setLocale('zh_CN')
 
-
 export const mockItemIndex: Mock = (responseConfig) => {
   const { kind, page } = responseConfig.params
   const per_page = 25 // 当前页显示的数量
@@ -31,7 +30,6 @@ export const mockItemIndex: Mock = (responseConfig) => {
   } else {
     return [200, createBody(0)]
   }
-
 }
 export const mockTagEdit: Mock = (responseConfig) => {
   const createTag = (attrs?: any) => ({

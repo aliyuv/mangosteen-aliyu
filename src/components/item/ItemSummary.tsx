@@ -31,7 +31,8 @@ export const ItemSummary = defineComponent({
       const { resources, pager } = response.data
 
       items.value?.push(...resources)
-      hasMore.value = (pager.page - 1) * pager.per_page + resources.length < pager.count
+      hasMore.value =
+        (pager.page - 1) * pager.per_page + resources.length < pager.count
       page.value += 1
     }
     onMounted(fetchItems)
@@ -62,18 +63,23 @@ export const ItemSummary = defineComponent({
                   <div class={s.text}>
                     <div class={s.tagAndAmount}>
                       <span class={s.tag}>{item.tags_id[0]}</span>
-                      <span class={s.amount}>￥<Money value={item.amount} /></span>
+                      <span class={s.amount}>
+                        ￥<Money value={item.amount} />
+                      </span>
                     </div>
-                    <div class={s.time}><Datetime value={item.happened_at} /></div>
+                    <div class={s.time}>
+                      <Datetime value={item.happened_at} />
+                    </div>
                   </div>
                 </li>
               ))}
             </ol>
             <div class={s.more}>
-              {hasMore.value ?
-                <Button onClick={fetchItems}>加载更多</Button> :
+              {hasMore.value ? (
+                <Button onClick={fetchItems}>加载更多</Button>
+              ) : (
                 <span>没有更多</span>
-              }
+              )}
             </div>
           </>
         ) : (
