@@ -25,23 +25,15 @@ export const Charts = defineComponent({
     const kind = ref('expenses')
     const data1 = ref<Data1>([])
     const betterData1 = computed<[string, number][]>(() => {
-      if (!props.startDate || !props.endDate) {
-        return []
-      }
-      const array = []
+      if (!props.startDate || !props.endDate) { return [] }
       const diff = new Date(props.endDate).getTime() - new Date(props.startDate).getTime()
       const days = diff / DAY + 1
-      let dataIndex = 0
-      for (let i = 0; i < days; i++) {
-        const time = new Time(`${props.startDate}T00:00:00.000+0800`).add(i, 'day').getTimestamp()
-        if (data1.value[dataIndex] && new Date(data1.value[dataIndex].happen_at).getTime() === time) {
-          array.push([new Date(time).toISOString(), data1.value[dataIndex].amount])
-          dataIndex += 1
-        } else {
-          array.push([new Date(time).toISOString(), 0])
-        }
-      }
-      return array as [string, number][]
+      return Array.from({ length: days }).map((_, i) => {
+        const time = new Time(props.startDate + 'T00:00:00.000+0800').add(i, 'day').getTimestamp()
+        const item = data1.value[0]
+        const amount = (item && new Date(item.happen_at).getTime() === time) ? data1.value.shift()!.amount : 0
+        return [new Date(time).toISOString(), amount]
+      })
     })
 
     onMounted(async () => {
