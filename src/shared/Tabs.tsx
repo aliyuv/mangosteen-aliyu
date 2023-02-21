@@ -20,6 +20,10 @@ export const Tabs = defineComponent({
     classPrefix: {
       type: String as PropType<string>,
     },
+    rerennderOnSwitchTab: {
+      type: Boolean as PropType<boolean>,
+      default: false,
+    }
   },
   /**/
   emits: ['update:selected'],
@@ -76,11 +80,16 @@ export const Tabs = defineComponent({
               ))}
               <div class={s.indicator} ref={indicator}></div>
             </ol>
-            <div>
-              {tab.map((item) => (
-                <div v-show={item.props?.name === props.selected}>{item}</div>
-              ))}
-            </div>
+            {props.rerennderOnSwitchTab ? (
+              <div key={props.selected}>
+                {tab.find(item => item.props?.name === props.selected)}</div>
+            ) :
+              (<div>
+                {tab.map((item) => (
+                  <div v-show={item.props?.name === props.selected}>{item}</div>
+                ))}
+              </div>)
+            }
           </nav>
         </div>
       )
