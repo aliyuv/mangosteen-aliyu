@@ -47,7 +47,6 @@ export const useSwiper = (element: Ref<HTMLElement | undefined>, options?: Optio
     }
     swiping.value = true
     options?.afteronTouchStart?.(e)
-    console.log('start', start.value)
   }
   const onTouchMove = (e: TouchEvent) => {
     options?.beforeonTouchMove?.(e)
@@ -56,13 +55,11 @@ export const useSwiper = (element: Ref<HTMLElement | undefined>, options?: Optio
     }
     end.value = { x: e.touches[0].clientX, y: e.touches[0].clientY }
     options?.afteronTouchMove?.(e)
-    console.log('end', end.value)
   }
   const onTouchEnd = (e: TouchEvent) => {
     options?.beforeonTouchEnd?.(e)
     swiping.value = false
     options?.afteronTouchEnd?.(e)
-    console.log('end', end.value)
   }
   onMounted(() => {
     if (!element.value) {

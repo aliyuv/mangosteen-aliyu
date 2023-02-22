@@ -54,9 +54,9 @@ export const Tabs = defineComponent({
             <ol ref={container} class={[s.tabs_nav, `${cp}_tabs_nav`]}>
               {tab.map((item) => (
                 <li
-                  class={[item.props?.name === props.selected ? s.selected : '', `${cp}_tabs_nav_item`]}
-                  onClick={() => context.emit('update:selected', item.props?.name)}
-                  ref={item.props?.name === props.selected ? selectedItem : undefined}
+                  class={[item.props?.value === props.selected ? s.selected : '', `${cp}_tabs_nav_item`]}
+                  onClick={() => context.emit('update:selected', item.props?.value)}
+                  ref={item.props?.value === props.selected ? selectedItem : undefined}
                 >
                   {item.props?.name}
                 </li>
@@ -64,11 +64,11 @@ export const Tabs = defineComponent({
               <div class={s.indicator} ref={indicator}></div>
             </ol>
             {props.rerennderOnSwitchTab ? (
-              <div key={props.selected}>{tab.find((item) => item.props?.name === props.selected)}</div>
+              <div key={props.selected}>{tab.find((item) => item.props?.value === props.selected)}</div>
             ) : (
               <div>
                 {tab.map((item) => (
-                  <div v-show={item.props?.name === props.selected}>{item}</div>
+                  <div v-show={item.props?.value === props.selected}>{item}</div>
                 ))}
               </div>
             )}
@@ -81,7 +81,14 @@ export const Tabs = defineComponent({
 
 export const Tab = defineComponent({
   props: {
-    name: String as PropType<string>
+    name: {
+      type: String as PropType<string>,
+      required: true
+    },
+    value: {
+      type: String as PropType<string>,
+      required: true
+    }
   },
   setup(props, context) {
     return () => <div>{context.slots.default?.()}</div>

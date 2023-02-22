@@ -15,7 +15,7 @@ const pushMap: Record<string, string> = {
 export const Welcome = defineComponent({
   setup() {
     const refMain = ref<HTMLElement>()
-    const { swiping, direction } = useSwiper(refMain, { beforeonTouchStart: (e) => e.preventDefault() })
+    const { swiping, direction } = useSwiper(refMain)
     const route = useRoute()
     const router = useRouter()
     const replace = throttle(() => {
