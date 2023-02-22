@@ -1,4 +1,5 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { Toast } from 'vant'
 import {
   mockItemCreate,
   mockItemIndex,
@@ -53,7 +54,7 @@ const mock = (response: AxiosResponse) => {
   if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1' && location.hostname !== '192.168.50.20') {
     return false
   }
-  switch (response.config?.params?._mock) {
+  switch (response.config?._mock) {
     case 'tagIndex':
       ;[response.status, response.data] = mockTagIndex(response.config)
       return true
@@ -88,7 +89,27 @@ http.instance.interceptors.request.use((response) => {
   if (jwt) {
     response.headers!.Authorization = `Bearer ${jwt}`
   }
+  if (response._autoLoading === true) {
+    Toast.loading({
+      message: '加载中...',
+      forbidClick: true,
+      duration: 0
+    })
+  }
   return response
+})
+
+
+http.instance.interceptors.response.use((response) => {
+  if (response.config._autoLoading === true) {
+    Toast.clear()
+  }
+  return response
+}, (error: AxiosError) => {
+  if (error.response?.config._autoLoading === true) {
+    Toast.clear()
+  }
+  throw error
 })
 
 http.instance.interceptors.response.use(
