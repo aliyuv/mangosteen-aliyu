@@ -4,7 +4,6 @@ import { First } from '../components/Welcome/First'
 import { Four } from '../components/Welcome/Four'
 import { Second } from '../components/Welcome/Second'
 import { Third } from '../components/Welcome/Third'
-import { StartPage } from '../views/StartPage'
 import { ItemPage } from '../views/ItemPage'
 import { ItemList } from '../components/item/ItemList'
 import { ItemCreate } from '../components/item/ItemCreate'
@@ -31,7 +30,6 @@ export const routes: RouteRecordRaw[] = [
       { path: '4', name: 'Welcome4', component: Four }
     ]
   },
-  { path: '/start', component: StartPage },
   {
     path: '/items',
     component: ItemPage,
