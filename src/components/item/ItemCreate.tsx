@@ -29,7 +29,7 @@ export const ItemCreate = defineComponent({
     }
     const onSubmit = async () => {
       await http
-        .post<Rescource<Item>>('/items', formData, { _mock: 'itemCreate' }).catch(onError)
+        .post<Rescource<Item>>('/items', formData, { _mock: 'itemCreate', _autoLoading: true }).catch(onError)
       router.push('/items')
       console.log(formData.tags_id[0])
     }

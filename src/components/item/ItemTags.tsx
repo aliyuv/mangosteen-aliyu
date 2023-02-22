@@ -21,7 +21,7 @@ export const ItemTags = defineComponent({
       return http.get<Rescources<Tag>>('/tags', {
         kind: props.kind,
         page: page + 1,
-      }, { _mock: 'tagIndex' })
+      }, { _mock: 'tagIndex', _autoLoading: true })
     })
     const onSelect = (tag: Tag) => {
       context.emit('update:selected', tag.id)
