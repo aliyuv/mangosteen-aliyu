@@ -18,7 +18,7 @@ export const Four = defineComponent({
               再也不怕数据丢失
             </h2>
           ),
-          action: () => <RouterLink to="/start">开启应用</RouterLink>
+          action: () => <RouterLink to="/items">开启应用</RouterLink>
         }}
       </WelcomeLayout>
     )

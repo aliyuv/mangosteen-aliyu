@@ -10,7 +10,7 @@ const pushMap: Record<string, string> = {
   Welcome1: '/welcome/2',
   Welcome2: '/welcome/3',
   Welcome3: '/welcome/4',
-  Welcome4: '/start'
+  Welcome4: '/items'
 }
 export const Welcome = defineComponent({
   setup() {
@@ -31,7 +31,7 @@ export const Welcome = defineComponent({
       <>
         <div class={s.wrapper}>
           <div class={s.skiplink} onClick={() => window.localStorage.setItem('skipFeatures', 'yes')}>
-            <RouterLink to="/start">跳过</RouterLink>
+            <RouterLink to="/items">跳过</RouterLink>
           </div>
           <header>
             <svg>

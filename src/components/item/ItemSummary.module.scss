@@ -1,5 +1,4 @@
-.wrapper {
-}
+.wrapper {}
 
 .total {
   background: var(--total-bg);
@@ -10,7 +9,7 @@
   border-radius: var(--button-radius);
   padding: 0 16px;
 
-  > li {
+  >li {
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -27,7 +26,7 @@
 }
 
 .list {
-  > li {
+  >li {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -78,4 +77,22 @@
 .more {
   padding-top: 32px;
   text-align: center;
+}
+
+
+.button {
+  width: 100%;
+
+  &_wrapper {
+    padding: 16px 16px;
+  }
+}
+
+.pig {
+  width: 128px;
+  height: 128px;
+
+  &_wrapper {
+    padding: 120px 0;
+  }
 }

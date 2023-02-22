@@ -1,4 +1,4 @@
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import { RouterLink } from 'vue-router'
 import { MainLayout } from '../Layouts/MainLayout'
 import { Button } from '../shared/Button'
@@ -8,8 +8,7 @@ import { Icon } from '../shared/Icon'
 import { OverlayIcon } from '../shared/Overlay'
 import s from './StartPage.module.scss'
 export const StartPage = defineComponent({
-  setup(props, context) {
-    const isVisiable = ref(false)
+  setup() {
     return () => (
       <MainLayout>
         {{
