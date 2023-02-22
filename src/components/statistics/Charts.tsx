@@ -39,9 +39,7 @@ export const Charts = defineComponent({
         const amount = item && new Date(item.happen_at).getTime() === time ? data1.value.shift()!.amount : 0
         return [new Date(time).toISOString(), amount]
       })
-
     })
-
 
     const fetchData1 = async () => {
       const response = await http.get<{ groups: Data1; summary: number }>('/items/summary', {
