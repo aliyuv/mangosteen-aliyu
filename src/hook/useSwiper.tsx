@@ -13,7 +13,7 @@ interface Options {
   beforeonTouchEnd?: (e: TouchEvent) => void
   afteronTouchEnd?: (e: TouchEvent) => void
 }
-export const useSwiper = (element: Ref<HTMLElement | null>, options?: Options) => {
+export const useSwiper = (element: Ref<HTMLElement | undefined>, options?: Options) => {
   const start = ref<Point | null>(null)
   const end = ref<Point | null>(null)
   const swiping = ref(false)

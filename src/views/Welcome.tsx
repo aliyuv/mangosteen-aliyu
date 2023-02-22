@@ -14,8 +14,8 @@ const pushMap: Record<string, string> = {
 }
 export const Welcome = defineComponent({
   setup() {
-    const refMain = ref<HTMLElement | null>(null)
-    const { swiping, direction, distance } = useSwiper(refMain)
+    const refMain = ref<HTMLElement>()
+    const { swiping, direction } = useSwiper(refMain, { beforeonTouchStart: (e) => e.preventDefault() })
     const route = useRoute()
     const router = useRouter()
     const replace = throttle(() => {
@@ -41,7 +41,7 @@ export const Welcome = defineComponent({
           </header>
           <main ref={refMain}>
             <RouterView>
-              {({ Component: x, route: R }: { Component: VNode; route: RouteLocationNormalizedLoaded }) => (
+              {({ Component: x }: { Component: VNode; route: RouteLocationNormalizedLoaded }) => (
                 <Transition
                   enterActiveClass={s.slide_fade_enter_active}
                   leaveActiveClass={s.slide_fade_leave_active}
