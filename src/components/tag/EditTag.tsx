@@ -46,11 +46,8 @@ export const EditTag = defineComponent({
             <>
               <TagForm isinTabBtnvs={false} id={numberId} />
               <div class={s.actions}>
-                <Button level="danger" class={s.removeTags} onClick={() => onDeleted()}>
-                  删除标签
-                </Button>
                 <Button level="danger" class={s.removeTagsAndItems} onClick={() => onDeleted({ withItems: true })}>
-                  删除标签和记账
+                  删除标签(对应的记账项也会被删除)
                 </Button>
               </div>
             </>
