@@ -39,12 +39,10 @@ export const ItemCreate = defineComponent({
         { key: 'happen_at', type: 'required', message: '时间必填' },
       ]))
       if (hasError(errors)) {
-        debugger
         Dialog.alert({
           title: '出错',
-          message: Object.values(errors).filter(i => i.length > 0).join('\n')
+          message: Object.values(errors).join('\n')
         })
-
         return
       }
       await http.post<Rescource<Item>>('/items', formData, { _mock: 'itemCreate', _autoLoading: true }).catch(onError)

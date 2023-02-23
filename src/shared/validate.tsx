@@ -21,7 +21,7 @@ export const validate = <T extends FData>(formData: T, rules: Rules<T>) => {
     const value = formData[key]
     switch (type) {
       case 'required':
-        if (isEmpty(value)) {
+        if (isEmpty(value) || (Array.isArray(value) && value.length === 0)) {
           errors[key] = errors[key] ?? []
           errors[key]?.push(message)
         }
