@@ -51,7 +51,10 @@ export class Http {
 }
 
 const mock = (response: AxiosResponse) => {
-  if (true || location.hostname !== 'localhost' && location.hostname !== '127.0.0.1' && location.hostname !== '192.168.50.20') {
+  if (
+    true ||
+    (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1' && location.hostname !== '192.168.50.20')
+  ) {
     return false
   }
   switch (response.config?._mock) {
@@ -99,18 +102,20 @@ http.instance.interceptors.request.use((response) => {
   return response
 })
 
-
-http.instance.interceptors.response.use((response) => {
-  if (response.config._autoLoading === true) {
-    Toast.clear()
+http.instance.interceptors.response.use(
+  (response) => {
+    if (response.config._autoLoading === true) {
+      Toast.clear()
+    }
+    return response
+  },
+  (error: AxiosError) => {
+    if (error.response?.config._autoLoading === true) {
+      Toast.clear()
+    }
+    throw error
   }
-  return response
-}, (error: AxiosError) => {
-  if (error.response?.config._autoLoading === true) {
-    Toast.clear()
-  }
-  throw error
-})
+)
 
 http.instance.interceptors.response.use(
   (response) => {

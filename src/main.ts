@@ -15,7 +15,7 @@ app.use(pinia)
 app.mount('#app')
 
 const meStore = useMeStore()
-const {mePromise} = storeToRefs(meStore)
+const { mePromise } = storeToRefs(meStore)
 meStore.fetchMe()
 
 const whiteList: Record<string, 'exact' | 'startWith'> = {

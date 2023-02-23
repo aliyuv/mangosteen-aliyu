@@ -27,9 +27,13 @@ export const EditTag = defineComponent({
         message: '删除后不可恢复，是否继续？'
       })
       await http
-        .delete(`/tags/${numberId}`, {
-          with_items: options?.withItems ? 'true' : 'false'
-        }, { _autoLoading: true })
+        .delete(
+          `/tags/${numberId}`,
+          {
+            with_items: options?.withItems ? 'true' : 'false'
+          },
+          { _autoLoading: true }
+        )
         .catch(onError)
       router.back()
     }

@@ -84,15 +84,18 @@ export const mockItemIndex: Mock = (config) => {
     ...attrs
   })
   const createItem = (n = 1, attrs?: any) =>
-    Array.from({ length: n }).map(() => ({
-      id: createId(),
-      user_id: createId(),
-      amount: Math.floor(Math.random() * 10000),
-      tag_ids: [createId()],
-      tags: [createTag()],
-      happen_at: faker.date.past().toISOString(),
-      kind: config.params.kind
-    } as Item))
+    Array.from({ length: n }).map(
+      () =>
+        ({
+          id: createId(),
+          user_id: createId(),
+          amount: Math.floor(Math.random() * 10000),
+          tag_ids: [createId()],
+          tags: [createTag()],
+          happen_at: faker.date.past().toISOString(),
+          kind: config.params.kind
+        } as Item)
+    )
   const createBody = (n = 1, attrs?: any) => ({
     resources: createItem(n),
     pager: createPaper(page),

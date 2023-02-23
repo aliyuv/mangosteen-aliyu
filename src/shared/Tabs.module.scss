@@ -1,6 +1,6 @@
 .tabs {
   nav {
-    >ol {
+    > ol {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -20,7 +20,7 @@
         transition: all 250ms linear;
       }
 
-      >li {
+      > li {
         flex-shrink: 0;
         flex-grow: 1;
         padding: 12px 0;

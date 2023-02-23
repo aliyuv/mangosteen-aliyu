@@ -54,4 +54,4 @@ type User = {
   email: string
 }
 
-type FormErrors<T> = {[k in keyof typeof T]: string[]}
+type FormErrors<T> = { [k in keyof typeof T]: string[] }
