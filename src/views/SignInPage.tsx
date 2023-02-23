@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { defineComponent, reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useBool } from '../hook/useBool'
@@ -8,11 +7,12 @@ import { Button } from '../shared/Button'
 import { Form, FormItem } from '../shared/Form'
 import { http } from '../shared/Http'
 import { Icon } from '../shared/Icon'
-import { resfresMe } from '../shared/me'
 import { hasError, validate } from '../shared/validate'
+import { useMeStore } from '../stores/useMeStore'
 import s from './SignInPage.module.scss'
 export const SignInPage = defineComponent({
   setup: (props, context) => {
+    const meStore = useMeStore()
     const formData = reactive({
       email: '',
       code: ''
@@ -49,7 +49,7 @@ export const SignInPage = defineComponent({
         window.localStorage.setItem('jwt', response.data.jwt)
         ///sign_to?return_to=/tags
         const returnTo = route.query.return_to?.toString()
-        resfresMe() // 在跳转之前获取 user 信息
+        meStore.refreshMe() // 在跳转之前获取 user 信息
         router.push(returnTo || '/')
       }
     }
