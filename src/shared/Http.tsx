@@ -73,64 +73,66 @@ http.instance.interceptors.response.use(
 )
 
 if (DEBUG) {
-  import('../mock/mock').then(({
-    mockItemCreate,
-    mockItemIndex,
-    mockItemIndexBalance,
-    mockItemSummary,
-    mockSession,
-    mockTagEdit,
-    mockTagIndex,
-    mockTagShow
-  }) => {
-    const mock = (response: AxiosResponse) => {
-      switch (response.config?._mock) {
-        case 'tagIndex':
-          ;[response.status, response.data] = mockTagIndex(response.config)
-          return true
-        case 'session':
-          ;[response.status, response.data] = mockSession(response.config)
-          return true
-        case 'itemCreate':
-          ;[response.status, response.data] = mockItemCreate(response.config)
-          return true
-        case 'tagShow':
-          ;[response.status, response.data] = mockTagShow(response.config)
-          return true
-        case 'tagEdit':
-          ;[response.status, response.data] = mockTagEdit(response.config)
-          return true
-        case 'itemIndex':
-          ;[response.status, response.data] = mockItemIndex(response.config)
-          return true
-        case 'itemIndexBalance':
-          ;[response.status, response.data] = mockItemIndexBalance(response.config)
-          return true
-        case 'itemSummary':
-          ;[response.status, response.data] = mockItemSummary(response.config)
-          return true
+  import('../mock/mock').then(
+    ({
+      mockItemCreate,
+      mockItemIndex,
+      mockItemIndexBalance,
+      mockItemSummary,
+      mockSession,
+      mockTagEdit,
+      mockTagIndex,
+      mockTagShow
+    }) => {
+      const mock = (response: AxiosResponse) => {
+        switch (response.config?._mock) {
+          case 'tagIndex':
+            ;[response.status, response.data] = mockTagIndex(response.config)
+            return true
+          case 'session':
+            ;[response.status, response.data] = mockSession(response.config)
+            return true
+          case 'itemCreate':
+            ;[response.status, response.data] = mockItemCreate(response.config)
+            return true
+          case 'tagShow':
+            ;[response.status, response.data] = mockTagShow(response.config)
+            return true
+          case 'tagEdit':
+            ;[response.status, response.data] = mockTagEdit(response.config)
+            return true
+          case 'itemIndex':
+            ;[response.status, response.data] = mockItemIndex(response.config)
+            return true
+          case 'itemIndexBalance':
+            ;[response.status, response.data] = mockItemIndexBalance(response.config)
+            return true
+          case 'itemSummary':
+            ;[response.status, response.data] = mockItemSummary(response.config)
+            return true
+        }
+        return false
       }
-      return false
+      http.instance.interceptors.response.use(
+        (response) => {
+          mock(response)
+          if (response.status >= 400) {
+            throw { response }
+          } else {
+            return response
+          }
+        },
+        (error) => {
+          mock(error.response)
+          if (error.response.status >= 400) {
+            throw error
+          } else {
+            return error.response
+          }
+        }
+      )
     }
-    http.instance.interceptors.response.use(
-      (response) => {
-        mock(response)
-        if (response.status >= 400) {
-          throw { response }
-        } else {
-          return response
-        }
-      },
-      (error) => {
-        mock(error.response)
-        if (error.response.status >= 400) {
-          throw error
-        } else {
-          return error.response
-        }
-      }
-    )
-  })
+  )
 }
 
 http.instance.interceptors.response.use(

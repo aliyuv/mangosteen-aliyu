@@ -5,13 +5,16 @@ import { svgstore } from './src/vite_plugins/svgstore'
 import styleImport, { VantResolve } from 'vite-plugin-style-import'
 import { devtools } from 'vue'
 // https://vitejs.dev/config/
-export default defineConfig(({command}) => {
+export default defineConfig(({ command }) => {
   return {
-    define: command === 'build' ? {
-      DEBUG: false
-    } : {
-      DEBUG: true
-    },
+    define:
+      command === 'build'
+        ? {
+            DEBUG: false
+          }
+        : {
+            DEBUG: true
+          },
     build: {
       rollupOptions: {
         output: {

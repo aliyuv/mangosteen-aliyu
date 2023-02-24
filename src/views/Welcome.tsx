@@ -4,7 +4,6 @@ import s from './Welcome.module.scss'
 import vhCheck from 'vh-check'
 import { useSwiper } from '../hook/useSwiper'
 import { throttle } from '../shared/throttle'
-import { ItemSummary } from '../components/item/ItemSummary'
 vhCheck()
 const pushMap: Record<string, string> = {
   Welcome1: '/welcome/2',
