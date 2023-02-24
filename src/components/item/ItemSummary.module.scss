@@ -7,7 +7,7 @@
   border-radius: var(--button-radius);
   padding: 0 16px;
 
-  > li {
+  >li {
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -24,11 +24,11 @@
 }
 
 .list {
-  & > & {
+  &>& {
     background-color: aliceblue;
   }
 
-  > li {
+  >li {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -94,5 +94,10 @@
 
   &_wrapper {
     padding: 120px 0;
+    font-size: 20px;
+
+    p {
+      padding: 4px 0;
+    }
   }
 }
