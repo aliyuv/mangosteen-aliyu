@@ -1,3 +1,4 @@
+import { Dialog } from 'vant'
 import { defineComponent, PropType, reactive, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useAfterMe } from '../../hook/useAfterMe'
