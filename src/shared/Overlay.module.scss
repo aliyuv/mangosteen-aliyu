@@ -18,7 +18,7 @@
   height: calc(100% - var(--top-safe-area-height));
   color: var(--text);
 
-  > .currentUser {
+  >.currentUser {
     background: var(--overlay-user-bg);
     color: var(--overlay-user-text);
     padding: 32px 16px;
@@ -36,7 +36,7 @@
     font-size: 20px;
   }
 
-  > .icon {
+  >.icon {
     margin-right: 12px;
   }
 }
@@ -52,4 +52,12 @@
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.exactActiveClass {
+  pointer-events: none;
+  font-weight: 800;
+  color: #333;
+  //选中的时候不可点击
+  background: rgba(0, 0, 0, 0.3);
 }
