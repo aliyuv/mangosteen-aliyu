@@ -3,6 +3,17 @@
   font-size: 32px;
 }
 
+.backButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 32px auto;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
 .pig {
   width: 128px;
   height: 128px;
