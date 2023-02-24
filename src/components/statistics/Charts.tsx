@@ -37,7 +37,8 @@ export const Charts = defineComponent({
         const time = new Time(`${props.startDate}T00:00:00.000+0800`).add(i, 'day').getTimestamp()
         const item = data1.value[0]
         // 服务器返回的数据就是按照 中国北京时区的，所以这里需要加上 8 小时
-        const amount = item && new Date(item.happen_at + 'T00:00:00.000+0800').getTime() === time ? data1.value.shift()!.amount : 0
+        const amount =
+          item && new Date(item.happen_at + 'T00:00:00.000+0800').getTime() === time ? data1.value.shift()!.amount : 0
         return [new Date(time).toISOString(), amount]
       })
     })

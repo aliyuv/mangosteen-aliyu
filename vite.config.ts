@@ -11,16 +11,16 @@ export default defineConfig({
       output: {
         manualChunks(id: any) {
           if (id.includes('echarts')) {
-            return 'echarts';
+            return 'echarts'
           }
           if (id.includes('mock') || id.includes('faker')) {
-            return 'mock';
+            return 'mock'
           }
           if (id.includes('vant')) {
-            return 'vant';
+            return 'vant'
           }
           if (id.includes('node_modules')) {
-            return 'vendor';
+            return 'vendor'
           }
         }
       }

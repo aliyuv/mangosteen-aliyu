@@ -17,7 +17,9 @@ export const ComingSoon = defineComponent({
         </Center>
         <p class={s.text}>敬请期待</p>
         <div class={s.link}>
-          <Button class={s.backButton} onClick={onClick}><Icon name='left' /></Button>
+          <Button class={s.backButton} onClick={onClick}>
+            <Icon name="left" />
+          </Button>
         </div>
       </div>
     )
