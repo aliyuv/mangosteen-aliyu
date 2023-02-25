@@ -1,5 +1,4 @@
-import { Dialog } from 'vant'
-import { defineComponent, PropType, reactive, watch } from 'vue'
+import { defineComponent, onMounted, onUnmounted, PropType, reactive, ref, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useAfterMe } from '../../hook/useAfterMe'
 import { Button } from '../../shared/Button'
@@ -10,6 +9,7 @@ import { http } from '../../shared/Http'
 import { Icon } from '../../shared/Icon'
 import { Money } from '../../shared/Money'
 import { useItemStore } from '../../stores/useItemStore'
+import { useMeStore } from '../../stores/useMeStore'
 import s from './ItemSummary.module.scss'
 export const ItemSummary = defineComponent({
   props: {
@@ -120,7 +120,7 @@ export const ItemSummary = defineComponent({
             <>
               <Center class={s.pig_wrapper} direction="|">
                 <Icon name="pig" class={s.pig} />
-                <span>目前没有数据</span>
+                <p>目前没有数据</p>
               </Center>
               <div class={s.button_wrapper}>
                 <RouterLink to="/items/create">
