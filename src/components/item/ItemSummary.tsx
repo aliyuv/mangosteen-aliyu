@@ -1,4 +1,4 @@
-import { defineComponent, onMounted, onUnmounted, PropType, reactive, ref, watch } from 'vue'
+import { defineComponent, PropType, reactive, watch } from 'vue'
 import { RouterLink } from 'vue-router'
 import { useAfterMe } from '../../hook/useAfterMe'
 import { Button } from '../../shared/Button'
@@ -9,7 +9,6 @@ import { http } from '../../shared/Http'
 import { Icon } from '../../shared/Icon'
 import { Money } from '../../shared/Money'
 import { useItemStore } from '../../stores/useItemStore'
-import { useMeStore } from '../../stores/useMeStore'
 import s from './ItemSummary.module.scss'
 export const ItemSummary = defineComponent({
   props: {
