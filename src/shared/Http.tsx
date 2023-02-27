@@ -41,11 +41,22 @@ export class Http {
   }
   // destroy
   delete<R = unknown>(url: string, query?: Record<string, string>, config?: DeleteConfig) {
-    return this.instance.request<R>({
-      ...config,
-      url: url,
-      params: query,
-      method: 'delete'
+    return this.instance.request<R>({ ...config, url: url, params: query, method: 'delete' })
+  }
+}
+
+export const http = new Http(DEBUG ? 'api/v1' : 'http://121.196.236.94:8080/api/v1')
+
+http.instance.interceptors.request.use((config) => {
+  const jwt = localStorage.getItem('jwt')
+  if (jwt) {
+    config.headers!.Authorization = `Bearer ${jwt}`
+  }
+  if (config._autoLoading === true) {
+    Toast.loading({
+      message: '加载中...',
+      forbidClick: true,
+      duration: 0
     })
   }
 }
