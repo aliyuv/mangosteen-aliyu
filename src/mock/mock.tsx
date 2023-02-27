@@ -12,9 +12,9 @@ export const mockItemSummary: Mock = (config) => {
       200,
       {
         groups: [
-          { happen_at: '2022-07-18T00:00:00.000+0800', amount: 100 },
-          { happen_at: '2022-07-22T00:00:00.000+0800', amount: 300 },
-          { happen_at: '2022-07-29T00:00:00.000+0800', amount: 200 }
+          { happen_at: '2023-02-01T00:00:00.000+0800', amount: 100 },
+          { happen_at: '2023-02-05T00:00:00.000+0800', amount: 300 },
+          { happen_at: '2023-02-10T00:00:00.000+0800', amount: 200 }
         ],
         summary: 600
       }
@@ -24,9 +24,9 @@ export const mockItemSummary: Mock = (config) => {
       200,
       {
         groups: [
-          { happen_at: '2022-07-08T00:00:00.000+0800', amount: 100 },
-          { happen_at: '2022-07-12T00:00:00.000+0800', amount: 300 },
-          { happen_at: '2022-07-19T00:00:00.000+0800', amount: 200 }
+          { happen_at: '2023-02-01T00:00:00.000+0800', amount: 100 },
+          { happen_at: '2023-02-05T00:00:00.000+0800', amount: 300 },
+          { happen_at: '2023-02-10T00:00:00.000+0800', amount: 200 }
         ],
         summary: 600
       }
@@ -86,15 +86,15 @@ export const mockItemIndex: Mock = (config) => {
   const createItem = (n = 1, attrs?: any) =>
     Array.from({ length: n }).map(
       () =>
-        ({
-          id: createId(),
-          user_id: createId(),
-          amount: Math.floor(Math.random() * 10000),
-          tag_ids: [createId()],
-          tags: [createTag()],
-          happen_at: faker.date.past().toISOString(),
-          kind: config.params.kind
-        } as Item)
+      ({
+        id: createId(),
+        user_id: createId(),
+        amount: Math.floor(Math.random() * 10000),
+        tag_ids: [createId()],
+        tags: [createTag()],
+        happen_at: faker.date.past().toISOString(),
+        kind: config.params.kind
+      } as Item)
     )
   const createBody = (n = 1, attrs?: any) => ({
     resources: createItem(n),
@@ -145,9 +145,9 @@ export const mockItemCreate: Mock = (config) => {
         amount: 9900,
         note: null,
         tag_ids: [3508],
-        happen_at: '2020-10-29T16:00:00.000Z',
-        created_at: '2022-07-03T15:35:56.301Z',
-        updated_at: '2022-07-03T15:35:56.301Z',
+        happen_at: '2023-2-10T16:00:00.000Z',
+        created_at: '2023-02-15T15:35:56.301Z',
+        updated_at: '2023-02-19T15:35:56.301Z',
         kind: 'expenses'
       } as Item
     }
@@ -157,7 +157,7 @@ export const mockSession: Mock = (config) => {
   return [
     200,
     {
-      jwt: faker.random.word()
+      jwt: faker.random.numeric(20),
     }
   ]
 }

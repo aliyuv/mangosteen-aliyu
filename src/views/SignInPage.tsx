@@ -45,7 +45,7 @@ export const SignInPage = defineComponent({
         ])
       )
       if (!hasError(errors)) {
-        const response = await http.post<{ jwt: string }>('/session', formData, { _autoLoading: true }).catch(onError)
+        const response = await http.post<{ jwt: string }>('/session', formData, { _mock: 'session', _autoLoading: true }).catch(onError)
         window.localStorage.setItem('jwt', response.data.jwt)
         ///sign_to?return_to=/tags
         const returnTo = route.query.return_to?.toString()

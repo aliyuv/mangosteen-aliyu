@@ -76,6 +76,7 @@ export const ItemTags = defineComponent({
             </div>
           ))}
         </div>
+
         <div class={s.more}>
           {hasMore.value ? <Button onClick={fetchTags}>加载更多~</Button> : <span>没有更多了</span>}
         </div>
