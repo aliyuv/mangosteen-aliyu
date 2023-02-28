@@ -1,20 +1,11 @@
 import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
 import { Toast } from 'vant'
-import {
-  mockItemCreate,
-  mockItemIndex,
-  mockItemIndexBalance,
-  mockItemSummary,
-  mockSession,
-  mockTagEdit,
-  mockTagIndex,
-  mockTagShow
-} from '../mock/mock'
 
 type GetConfig = Omit<AxiosRequestConfig, 'params' | 'url' | 'method'>
 type PostConfig = Omit<AxiosRequestConfig, 'url' | 'data' | 'method'>
 type PatchConfig = Omit<AxiosRequestConfig, 'url' | 'data'>
 type DeleteConfig = Omit<AxiosRequestConfig, 'params'>
+
 export class Http {
   instance: AxiosInstance
   constructor(baseURL: string) {
@@ -22,30 +13,21 @@ export class Http {
       baseURL
     })
   }
-  // read
-  get<R = unknown>(url: string, query?: JSONValue, config?: GetConfig) {
-    return this.instance.request<R>({
-      ...config,
-      url: url,
-      params: query,
-      method: 'get'
-    })
+  get<R = unknown>(url: string, query?: Record<string, JSONValue>, config?: GetConfig) {
+    return this.instance.request<R>({ ...config, url: url, params: query, method: 'get' })
   }
-  // create
-  post<R = unknown>(url: string, data?: JSONValue, config?: PostConfig) {
+  post<R = unknown>(url: string, data?: Record<string, JSONValue>, config?: PostConfig) {
     return this.instance.request<R>({ ...config, url, data, method: 'post' })
   }
-  // update
-  patch<R = unknown>(url: string, data?: JSONValue, config?: PatchConfig) {
+  patch<R = unknown>(url: string, data?: Record<string, JSONValue>, config?: PatchConfig) {
     return this.instance.request<R>({ ...config, url, data, method: 'patch' })
   }
-  // destroy
   delete<R = unknown>(url: string, query?: Record<string, string>, config?: DeleteConfig) {
     return this.instance.request<R>({ ...config, url: url, params: query, method: 'delete' })
   }
 }
 
-export const http = new Http(DEBUG ? 'api/v1' : 'http://121.196.236.94:8080/api/v1')
+export const http = new Http(DEBUG ? 'api/v1' : 'http://121.196.236.94:3000/api/v1')
 
 http.instance.interceptors.request.use((config) => {
   const jwt = localStorage.getItem('jwt')
@@ -59,62 +41,7 @@ http.instance.interceptors.request.use((config) => {
       duration: 0
     })
   }
-}
-
-const mock = (response: AxiosResponse) => {
-  if (
-    true ||
-    (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1' && location.hostname !== '192.168.50.20')
-  ) {
-    return false
-  }
-  switch (response.config?._mock) {
-    case 'tagIndex':
-      ;[response.status, response.data] = mockTagIndex(response.config)
-      return true
-    case 'session':
-      ;[response.status, response.data] = mockSession(response.config)
-      return true
-    case 'itemCreate':
-      ;[response.status, response.data] = mockItemCreate(response.config)
-      return true
-    case 'tagShow':
-      ;[response.status, response.data] = mockTagShow(response.config)
-      return true
-    case 'tagEdit':
-      ;[response.status, response.data] = mockTagEdit(response.config)
-      return true
-    case 'itemIndex':
-      ;[response.status, response.data] = mockItemIndex(response.config)
-      return true
-    case 'itemIndexBalance':
-      ;[response.status, response.data] = mockItemIndexBalance(response.config)
-      return true
-    case 'itemSummary':
-      ;[response.status, response.data] = mockItemSummary(response.config)
-      return true
-  }
-  return false
-}
-function isDev() {
-  if (location.hostname !== 'localhost' && location.hostname !== '127.0.0.1' && location.hostname !== '192.168.50.20') { return false }
-  return true
-}
-export const http = new Http(isDev() ? 'api/v1' : 'http://121.196.236.94:3000/api/v1')
-
-http.instance.interceptors.request.use((response) => {
-  const jwt = window.localStorage.getItem('jwt')
-  if (jwt) {
-    response.headers!.Authorization = `Bearer ${jwt}`
-  }
-  if (response._autoLoading === true) {
-    Toast.loading({
-      message: '加载中...',
-      forbidClick: true,
-      duration: 0
-    })
-  }
-  return response
+  return config
 })
 
 http.instance.interceptors.response.use(
@@ -132,25 +59,68 @@ http.instance.interceptors.response.use(
   }
 )
 
-http.instance.interceptors.response.use(
-  (response) => {
-    mock(response)
-    if (response.status >= 400) {
-      throw { response }
-    } else {
-      return response
+if (false) {
+  import('../mock/mock').then(
+    ({
+      mockItemCreate,
+      mockItemIndex,
+      mockItemIndexBalance,
+      mockItemSummary,
+      mockSession,
+      mockTagEdit,
+      mockTagIndex,
+      mockTagShow
+    }) => {
+      const mock = (response: AxiosResponse) => {
+        switch (response.config?._mock) {
+          case 'tagIndex':
+            ;[response.status, response.data] = mockTagIndex(response.config)
+            return true
+          case 'session':
+            ;[response.status, response.data] = mockSession(response.config)
+            return true
+          case 'itemCreate':
+            ;[response.status, response.data] = mockItemCreate(response.config)
+            return true
+          case 'tagShow':
+            ;[response.status, response.data] = mockTagShow(response.config)
+            return true
+          case 'tagEdit':
+            ;[response.status, response.data] = mockTagEdit(response.config)
+            return true
+          case 'itemIndex':
+            ;[response.status, response.data] = mockItemIndex(response.config)
+            return true
+          case 'itemIndexBalance':
+            ;[response.status, response.data] = mockItemIndexBalance(response.config)
+            return true
+          case 'itemSummary':
+            ;[response.status, response.data] = mockItemSummary(response.config)
+            return true
+        }
+        return false
+      }
+      http.instance.interceptors.response.use(
+        (response) => {
+          mock(response)
+          if (response.status >= 400) {
+            throw { response }
+          } else {
+            return response
+          }
+        },
+        (error) => {
+          mock(error.response)
+          if (error.response.status >= 400) {
+            throw error
+          } else {
+            return error.response
+          }
+        }
+      )
     }
-  },
-  (error) => {
-    mock(error.response)
-    if (error.response.status >= 400) {
-      throw error
-    } else {
-      return error.response
-    }
-  }
-)
-
+  )
+}
 http.instance.interceptors.response.use(
   (response) => {
     return response
