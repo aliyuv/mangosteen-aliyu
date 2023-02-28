@@ -1,4 +1,4 @@
-import { DefineComponent, defineComponent, PropType } from 'vue'
+import { defineComponent } from 'vue'
 import { TimeTabsLayOut } from '../../Layouts/TimeTabsLayOut'
 
 import { ItemSummary } from './ItemSummary'
