@@ -6,6 +6,12 @@ import { Tab, Tabs } from '../shared/Tabs'
 import { Time } from '../shared/time'
 import { MainLayout } from './MainLayout'
 import s from './TimeTabsLayOut.module.scss'
+import dayjs from 'dayjs'
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 const demo = defineComponent({
   props: {
     startDate: {
@@ -46,8 +52,8 @@ export const TimeTabsLayOut = defineComponent({
     }>({})
     const timeList = [
       {
-        start: time.firstDayOfMonth(),
-        end: time.lastDayOfMonth()
+        start: dayjs().tz('Asia/Shanghai').startOf('month'),
+        end: dayjs().tz('Asia/Shanghai').endOf('month')
       },
       {
         start: time.add(-1, 'month').firstDayOfMonth(),
